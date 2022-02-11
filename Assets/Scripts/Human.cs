@@ -9,6 +9,7 @@ public class Human : MonoBehaviour
     public Camera mainCamera;
     public float lookSpeed = 0.5f; //speed at which the camera can rotate on the y axis 
     public float rotationY = 0f; //float the record how much the mouse moves (left/right)
+    public float rotationX = 0f;
     public bool isKeyWPressed; //boolean that is set to true when the 'W' key is pressed (Input.GetKeyDown) and to false when the key isn't pressed anymore (Input.GetKeyUp)
     public bool isKeyRightPressed; //boolean that is set to true when the right arrow key is pressed (Input.GetKeyDown) and to false when the key isn't pressed anymore (Input.GetKeyUp)
     public bool isKeyLeftPressed; //boolean that is set to true when the left arrow key is pressed (Input.GetKeyDown) and to false when the key isn't pressed anymore (Input.GetKeyUp)
@@ -17,7 +18,7 @@ public class Human : MonoBehaviour
 
 
     void CameraMove(){
-        this.mainCamera.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 1, this.transform.position.z);
+        this.mainCamera.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 1.85f, this.transform.position.z);
         mainCamera.transform.localRotation = Quaternion.Euler(0f, -1f * rotationY, 0f);
         this.transform.localRotation = this.mainCamera.transform.localRotation;
     }
@@ -43,10 +44,8 @@ public class Human : MonoBehaviour
             this.isKeyWPressed = true;
         if(this.isKeyWPressed)
             this.transform.position += this.transform.forward * this.speed * 10 * Time.deltaTime;
-
         if(Input.GetKeyUp(KeyCode.W))
             this.isKeyWPressed = false;
-
 
         if(Input.GetKeyDown(KeyCode.LeftArrow)) //to move left (from the camera's view it would be left)
             this.isKeyLeftPressed = true;
@@ -54,8 +53,6 @@ public class Human : MonoBehaviour
             this.rotationY += 45 * lookSpeed * Time.deltaTime;
         if(Input.GetKeyUp(KeyCode.LeftArrow))
             this.isKeyLeftPressed = false;
-
-
 
         if(Input.GetKeyDown(KeyCode.RightArrow)) //to move right (from the camera's view it would be right)
             this.isKeyRightPressed = true;

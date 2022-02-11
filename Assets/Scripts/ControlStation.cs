@@ -7,8 +7,8 @@ public class ControlStation : MonoBehaviour
 
     public List<Drone> drones = new List<Drone>();
     public List<Drone> dronesInMission = new List<Drone>();
-    public int numbersOfDronesAvailable;
-    public List<GameObject> spots = new List<GameObject>();
+    public int numberOfDronesAvailable;
+    public List<GameObject[]> allSpots = new List<GameObject[]>();
     public int range = 100;
     
     // Start is called before the first frame update
@@ -18,24 +18,29 @@ public class ControlStation : MonoBehaviour
         {
             this.drones.Add(drone);
         }
-        this.numbersOfDronesAvailable = this.drones.Count;
+        this.numberOfDronesAvailable = this.drones.Count;
 
-        foreach(GameObject spot in GameObject.FindGameObjectsWithTag("spot") as GameObject[])
+        GameObject[] passageSpots;
+        for(int i = 1 ; i <= GameObject.FindGameObjectsWithTag("crossing").Length ; i++)
         {
-            this.spots.Add(spot);
+            passageSpots = GameObject.FindGameObjectsWithTag("spot" + i.ToString());
+            this.allSpots.Add(passageSpots);
         }
+
     }
 
-    public void StartMission()
+    public void StartMission(int buttonTag)
     {
-        if(this.numbersOfDronesAvailable >= this.spots.Count)
+        GameObject[] missionSpots = this.allSpots[buttonTag - 1];
+
+        if(this.numberOfDronesAvailable >= missionSpots.Length)
         {
             foreach(Drone drone in FindObjectsOfType(typeof(Drone)) as Drone[])
             {
                 if(!drone.isActive)
                 {
                     this.dronesInMission.Add(drone);
-                    this.numbersOfDronesAvailable--;
+                    this.numberOfDronesAvailable--;
                     drone.isActive = true;
                     drone.step1 = true;
                 }
@@ -45,7 +50,7 @@ public class ControlStation : MonoBehaviour
             int i = 0;
             foreach(Drone drone in this.dronesInMission)
             {
-                drone.spot = this.spots[i];
+                drone.spot = missionSpots[i];
                 i++;
             }
         }

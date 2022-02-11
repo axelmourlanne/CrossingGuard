@@ -9,12 +9,12 @@ public class Button : MonoBehaviour
 
     private void OnMouseDown()
     {
-        this.headquarters.StartMission();
+        this.headquarters.StartMission(int.Parse(this.tag));
     }
 
     public void Start()
     {
-        this.headquarters = GameObject.Find("Headquarters").GetComponent<ControlStation>();    
+        this.headquarters = GameObject.Find("Headquarters").GetComponent<ControlStation>(); 
     }
 
 }
