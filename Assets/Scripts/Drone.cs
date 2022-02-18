@@ -23,6 +23,10 @@ public class Drone : MonoBehaviour
     public Drone chief = null;
     public bool pedestrianHasStartedTraversing;
     public int numberOfDetections;
+    public float timerMissionEnd = 0f;
+    public bool blink;
+    public float timerBlink = 0f;
+    public Color originalColor; 
 
 
     void DetectionLaser()
@@ -58,6 +62,7 @@ public class Drone : MonoBehaviour
         {
             if(this.numberOfDetections == 0 && pedestrianHasStartedTraversing)
             {
+                this.timerMissionEnd += Time.deltaTime;
                 foreach(Drone drone in this.dronesInMission)
                 {
                     drone.step4 = false;
@@ -92,6 +97,8 @@ public class Drone : MonoBehaviour
         this.headquarters = GameObject.Find("Headquarters").GetComponent<ControlStation>();
         this.pedestrianHasStartedTraversing = false;
         this.numberOfDetections = 0;
+        this.blink = false;
+        this.originalColor = this.transform.GetChild(2).GetComponent<Renderer>().material.color;
     }
 
     int GetDroneID()
@@ -104,6 +111,7 @@ public class Drone : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if(this.isActive)
         {
 
@@ -137,7 +145,7 @@ public class Drone : MonoBehaviour
                 }
             }
 
-            if(this.step2)
+            else if(this.step2)
             {
                 float dX = Mathf.Abs(this.transform.position.x - this.spot.transform.position.x);
                 float dZ = Mathf.Abs(this.transform.position.z - this.spot.transform.position.z);
@@ -151,7 +159,7 @@ public class Drone : MonoBehaviour
                     this.targetStep3 = new Vector3(this.transform.position.x, this.spot.transform.position.y, this.transform.position.z);
                 }
             }
-            if(this.step3)
+            else if(this.step3)
             {
                 transform.position = Vector3.MoveTowards(transform.position, targetStep3, this.speed * Time.deltaTime);
 
@@ -165,26 +173,61 @@ public class Drone : MonoBehaviour
                 }
 
             }
-            if(this.step4)
+            else if(this.step4)
             {
+                if(blink)
+                {
+                    if(this.spot.name.Contains("Spot2") || this.spot.name.Contains("Spot5"))
+                        this.transform.GetChild(2).GetComponent<Renderer>().material.color = Color.blue;
+                    else
+                        this.transform.GetChild(2).GetComponent<Renderer>().material.color = Color.red;
+                }
+
+                else
+                {
+                    if(this.spot.name.Contains("Spot2") || this.spot.name.Contains("Spot5"))
+                        this.transform.GetChild(2).GetComponent<Renderer>().material.color = Color.red;
+                    else
+                        this.transform.GetChild(2).GetComponent<Renderer>().material.color = Color.blue;
+                }
+
+                if(this.timerBlink <= 0.75f)
+                    this.timerBlink += Time.deltaTime;
+                
+                else
+                {
+                    this.blink = !this.blink;
+                    this.timerBlink = 0f;
+                }
                 DetectionLaser();
                 IsPedestrianStillTraversing();
             }
 
-            if(this.step5)
+            else if(this.step5)
             {
-                Vector3 newPos = new Vector3(this.transform.position.x, this.headquarters.transform.position.y, this.transform.position.z);
-                this.transform.position = Vector3.MoveTowards(this.transform.position, newPos, this.speed * Time.deltaTime);
 
-                float dY = Mathf.Abs(this.transform.position.y - newPos.y);
-
-                if(dY <= 0.1f)
+                if(this.timerMissionEnd <= 3f)
                 {
-                    this.step5 = false;
-                    this.step6 = true;
+                    this.timerMissionEnd += Time.deltaTime;
+                    this.transform.GetChild(2).GetComponent<Renderer>().material.color = Color.green;
                 }
+                else
+                {
+                    Vector3 newPos = new Vector3(this.transform.position.x, this.headquarters.transform.position.y, this.transform.position.z);
+                    this.transform.position = Vector3.MoveTowards(this.transform.position, newPos, this.speed * Time.deltaTime);
+
+                    float dY = Mathf.Abs(this.transform.position.y - newPos.y);
+
+                    if(dY <= 0.1f)
+                    {
+                        this.step5 = false;
+                        this.timerMissionEnd = 0f;
+                        this.transform.GetChild(2).GetComponent<Renderer>().material.color = this.originalColor;
+                        this.step6 = true;
+                    }
+                }    
             }
-            if(this.step6)
+            else if(this.step6)
             {
                 Vector3 newPos = new Vector3(this.headquarters.transform.position.x, this.transform.position.y, this.headquarters.transform.position.z);
                 this.transform.position = Vector3.MoveTowards(this.transform.position, newPos, this.speed * Time.deltaTime);
@@ -206,7 +249,6 @@ public class Drone : MonoBehaviour
 
                 }
             }
-            
         }
     }
 
