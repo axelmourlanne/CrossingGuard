@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Drone : MonoBehaviour
 {
-    public GameObject spot;
+    public GameObject spot = null;
     public bool isActive;
     public bool step1;
     public bool step2;
@@ -27,6 +27,9 @@ public class Drone : MonoBehaviour
     public bool blink;
     public float timerBlink = 0f;
     public Color originalColor; 
+    public Vector3 initialPosition;
+    public float timerDistance = 0f;
+    public GameObject[] missionSpots;
 
 
     void DetectionLaser()
@@ -68,6 +71,7 @@ public class Drone : MonoBehaviour
                     drone.step4 = false;
                     drone.step5 = true;
                 }
+                this.headquarters.currentlyUsedSpots.Remove(this.missionSpots);
             }
             else
                 this.numberOfDetections = 0;
@@ -99,6 +103,7 @@ public class Drone : MonoBehaviour
         this.numberOfDetections = 0;
         this.blink = false;
         this.originalColor = this.transform.GetChild(2).GetComponent<Renderer>().material.color;
+        this.initialPosition = this.transform.position;
     }
 
     int GetDroneID()
@@ -115,19 +120,20 @@ public class Drone : MonoBehaviour
         if(this.isActive)
         {
 
-            // foreach(Drone drone in this.chief.dronesInMission)
-            // {
-            //     if(drone.name == this.name)
-            //         continue;
+            foreach(Drone drone in this.chief.dronesInMission)
+            {
+                if(drone.name == this.name)
+                    continue;
                 
-            //     float dX = Mathf.Abs(this.transform.position.x - drone.transform.position.x);
-            //     float dY = Mathf.Abs(this.transform.position.y - drone.transform.position.y);
-            //     float dZ = Mathf.Abs(this.transform.position.z - drone.transform.position.z);
+                float dX = Mathf.Abs(this.transform.position.x - drone.transform.position.x);
+                float dY = Mathf.Abs(this.transform.position.y - drone.transform.position.y);
+                float dZ = Mathf.Abs(this.transform.position.z - drone.transform.position.z);
                 
-                // if(dX <= 4f && dY < 4f && dZ <= 4f && this.GetDroneID() > drone.GetDroneID())
-                // {
-                //     this.isActive = false;
-                // }
+                if(dX <= 0.5f && dY < 0.5f && dZ <= 0.5f && this.GetDroneID() > drone.GetDroneID())
+                {
+                    this.isActive = false;
+                    this.timerDistance += Time.deltaTime;
+                }
             }
 
             if(this.step1)
@@ -213,7 +219,7 @@ public class Drone : MonoBehaviour
                 }
                 else
                 {
-                    Vector3 newPos = new Vector3(this.transform.position.x, this.headquarters.transform.position.y, this.transform.position.z);
+                    Vector3 newPos = new Vector3(this.transform.position.x, this.initialPosition.y, this.transform.position.z);
                     this.transform.position = Vector3.MoveTowards(this.transform.position, newPos, this.speed * Time.deltaTime);
 
                     float dY = Mathf.Abs(this.transform.position.y - newPos.y);
@@ -229,26 +235,43 @@ public class Drone : MonoBehaviour
             }
             else if(this.step6)
             {
-                Vector3 newPos = new Vector3(this.headquarters.transform.position.x, this.transform.position.y, this.headquarters.transform.position.z);
+                Vector3 newPos = new Vector3(this.initialPosition.x, this.transform.position.y, this.initialPosition.z);
                 this.transform.position = Vector3.MoveTowards(this.transform.position, newPos, this.speed * Time.deltaTime);
 
-                float dX = Mathf.Abs(this.transform.position.x - this.headquarters.transform.position.x);
-                float dZ = Mathf.Abs(this.transform.position.z - this.headquarters.transform.position.z);
+                float dX = Mathf.Abs(this.transform.position.x - this.initialPosition.x);
+                float dZ = Mathf.Abs(this.transform.position.z - this.initialPosition.z);
 
                 if(dX <= 0.1f && dZ <= 0.1f)
                 {
                     this.step6 = false;
                     this.isActive = false;
                     this.pedestrianHasStartedTraversing = false;
+                    this.headquarters.numberOfDronesAvailable++;
                     if(this == this.chief)
                     {
-                        this.headquarters.numberOfDronesAvailable += 6;
                         this.dronesInMission = new List<Drone>();
                     }
                     this.chief = null;
+                    this.spot = null;
 
+                }
+            }
+
+        }
+
+        else
+        {
+            if(this.timerDistance > 0f)
+            {
+                if(this.timerDistance < 1f)
+                    this.timerDistance += Time.deltaTime;
+                else
+                {
+                    this.isActive = true;
+                    this.timerDistance = 0f;
                 }
             }
         }
     }
 
+}
