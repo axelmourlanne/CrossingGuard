@@ -30,6 +30,7 @@ public class Drone : MonoBehaviour
     public Vector3 initialPosition;
     public float timerDistance = 0f;
     public GameObject[] missionSpots;
+    public int cpt = 0;
 
 
     void DetectionLaser()
@@ -59,11 +60,11 @@ public class Drone : MonoBehaviour
 
     }
 
-    void IsPedestrianStillTraversing()
+    void IsPedestrianStillTraversing(string order="nvm")
     {
         if(this == this.chief)
         {
-            if(this.numberOfDetections == 0 && pedestrianHasStartedTraversing)
+            if((this.numberOfDetections == 0 && pedestrianHasStartedTraversing) || order == "troll")
             {
                 this.timerMissionEnd += Time.deltaTime;
                 foreach(Drone drone in this.dronesInMission)
@@ -136,7 +137,7 @@ public class Drone : MonoBehaviour
                 }
             }
 
-            if(this.step1)
+            if(this.step1) //elevation to safeDistance
             {
 
                 transform.position = Vector3.MoveTowards(transform.position, targetStep1, this.speed * Time.deltaTime);
@@ -151,7 +152,7 @@ public class Drone : MonoBehaviour
                 }
             }
 
-            else if(this.step2)
+            else if(this.step2) //moves from station to over the spot
             {
                 float dX = Mathf.Abs(this.transform.position.x - this.spot.transform.position.x);
                 float dZ = Mathf.Abs(this.transform.position.z - this.spot.transform.position.z);
@@ -165,7 +166,7 @@ public class Drone : MonoBehaviour
                     this.targetStep3 = new Vector3(this.transform.position.x, this.spot.transform.position.y, this.transform.position.z);
                 }
             }
-            else if(this.step3)
+            else if(this.step3) //decreases altitude to the spot
             {
                 transform.position = Vector3.MoveTowards(transform.position, targetStep3, this.speed * Time.deltaTime);
 
@@ -175,11 +176,13 @@ public class Drone : MonoBehaviour
                 if(dY <= 0.1f)
                 {
                     this.step3 = false;
+                    this.chief.cpt++;
                     this.step4 = true;
                 }
 
             }
-            else if(this.step4)
+
+            else if(this.step4) //starts blinking and detecting
             {
                 if(blink)
                 {
@@ -197,22 +200,38 @@ public class Drone : MonoBehaviour
                         this.transform.GetChild(2).GetComponent<Renderer>().material.color = Color.blue;
                 }
 
-                if(this.timerBlink <= 0.75f)
-                    this.timerBlink += Time.deltaTime;
-                
-                else
+                if(this.chief.cpt == 6) //every drone has arrived and starts blinking + detecting pedestrians
                 {
-                    this.blink = !this.blink;
-                    this.timerBlink = 0f;
+                    if(this.timerBlink <= 0.75f)
+                        this.timerBlink += Time.deltaTime;
+                        
+                    else
+                    {
+                        this.blink = !this.blink;
+                        this.timerBlink = 0f;
+                    }
+                    DetectionLaser();
+                    IsPedestrianStillTraversing();
+                
+                    if(!this.chief.pedestrianHasStartedTraversing)
+                    {
+                        if(this.timerMissionEnd < 5f)
+                        {
+                            this.timerMissionEnd += Time.deltaTime;
+                        }
+                        else //the person who called the drones is probably not using the crosswalk
+                        {
+                            this.timerMissionEnd = 3f;
+                            IsPedestrianStillTraversing("troll");
+                        }
+                    }
                 }
-                DetectionLaser();
-                IsPedestrianStillTraversing();
             }
 
-            else if(this.step5)
+            else if(this.step5) //pedestrian has finished crossing, drone elevates again
             {
 
-                if(this.timerMissionEnd <= 3f)
+                if(this.timerMissionEnd < 3f)
                 {
                     this.timerMissionEnd += Time.deltaTime;
                     this.transform.GetChild(2).GetComponent<Renderer>().material.color = Color.green;
@@ -233,7 +252,7 @@ public class Drone : MonoBehaviour
                     }
                 }    
             }
-            else if(this.step6)
+            else if(this.step6) // goes to its original station
             {
                 Vector3 newPos = new Vector3(this.initialPosition.x, this.transform.position.y, this.initialPosition.z);
                 this.transform.position = Vector3.MoveTowards(this.transform.position, newPos, this.speed * Time.deltaTime);
@@ -245,11 +264,12 @@ public class Drone : MonoBehaviour
                 {
                     this.step6 = false;
                     this.isActive = false;
-                    this.pedestrianHasStartedTraversing = false;
                     this.headquarters.numberOfDronesAvailable++;
                     if(this == this.chief)
                     {
+                        this.pedestrianHasStartedTraversing = false;
                         this.dronesInMission = new List<Drone>();
+                        this.cpt = 0;
                     }
                     this.chief = null;
                     this.spot = null;

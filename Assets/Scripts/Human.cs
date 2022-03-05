@@ -9,12 +9,9 @@ public class Human : MonoBehaviour
     public Camera mainCamera;
     public float lookSpeed = 1.5f; //speed at which the camera can rotate on the y axis 
     public float rotationY = 0f; //float the record how much the mouse moves (left/right)
-    public float rotationX = 0f;
     public bool isKeyWPressed; //boolean that is set to true when the 'W' key is pressed (Input.GetKeyDown) and to false when the key isn't pressed anymore (Input.GetKeyUp)
     public bool isKeyRightPressed; //boolean that is set to true when the right arrow key is pressed (Input.GetKeyDown) and to false when the key isn't pressed anymore (Input.GetKeyUp)
     public bool isKeyLeftPressed; //boolean that is set to true when the left arrow key is pressed (Input.GetKeyDown) and to false when the key isn't pressed anymore (Input.GetKeyUp)
-    public bool isKeyUpPressed; //boolean that is set to true when the up arrow key is pressed (Input.GetKeyDown) and to false when the key isn't pressed anymore (Input.GetKeyUp)
-    public bool isKeyDownPressed; //boolean that is set to true when the down arrow key is pressed (Input.GetKeyDown) and to false when the key isn't pressed anymore (Input.GetKeyUp)
 
 
     void CameraMove(){
@@ -29,10 +26,6 @@ public class Human : MonoBehaviour
         isKeyWPressed = false;
         isKeyLeftPressed = false;
         isKeyRightPressed = false;
-        isKeyDownPressed = false;
-        isKeyUpPressed = false;
-        Time.timeScale = 1f;
-
     }
 
     // Update is called once per frame
