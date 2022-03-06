@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.62332946, g: 0.70386934, b: 0.7545053, a: 1}
+  m_IndirectSpecularColor: {r: 0.62332946, g: 0.7038682, b: 0.75450355, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -903,7 +903,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &25496073
 PrefabInstance:
@@ -2450,11 +2450,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 75888130}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -320.87, y: 71.4, z: -5.3100014}
+  m_LocalPosition: {x: -320.87, y: 71.4, z: -18.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 30
+  m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &77858307
 PrefabInstance:
@@ -4796,7 +4796,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 485172, guid: 7ee69ef87f85ae447998d4abab175cf9, type: 3}
       propertyPath: m_RootOrder
-      value: 36
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 485172, guid: 7ee69ef87f85ae447998d4abab175cf9, type: 3}
       propertyPath: m_LocalScale.x
@@ -7390,12 +7390,9 @@ MonoBehaviour:
   mainCamera: {fileID: 1393393430}
   lookSpeed: 2
   rotationY: 0
-  rotationX: 0
   isKeyWPressed: 0
   isKeyRightPressed: 0
   isKeyLeftPressed: 0
-  isKeyUpPressed: 0
-  isKeyDownPressed: 0
 --- !u!54 &203279845
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -14759,132 +14756,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffa4d200e6c7d9c4b90b3764b7ed86d4, type: 3}
---- !u!1 &410333420
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 410333421}
-  - component: {fileID: 410333426}
-  - component: {fileID: 410333425}
-  - component: {fileID: 410333424}
-  - component: {fileID: 410333423}
-  - component: {fileID: 410333422}
-  m_Layer: 0
-  m_Name: Sphere
-  m_TagString: 2
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &410333421
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 410333420}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.05, y: 1.9, z: 0}
-  m_LocalScale: {x: 0.001, y: 0.09, z: 0.06}
-  m_Children: []
-  m_Father: {fileID: 596902480}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &410333422
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 410333420}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &410333423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 410333420}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9023fda2f1eb118409950510eb95cbdb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  headquarters: {fileID: 0}
---- !u!135 &410333424
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 410333420}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &410333425
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 410333420}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 30971e3a8cbd278489d3ddc0f976f1d3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &410333426
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 410333420}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &410582120 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4004965118951458, guid: ffa4d200e6c7d9c4b90b3764b7ed86d4, type: 3}
@@ -16309,19 +16180,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spot: {fileID: 0}
   isActive: 0
-  step1: 0
-  step2: 0
-  step3: 0
-  step4: 0
-  step5: 0
-  step6: 0
-  targetStep1: {x: 0, y: 0, z: 0}
-  targetStep2: {x: 0, y: 0, z: 0}
-  targetStep3: {x: 0, y: 0, z: 0}
+  startFromStation: 0
+  descendToSpot: 0
+  detection: 0
+  endOfMission: 0
+  backToStation: 0
+  targetPosition: {x: 0, y: 0, z: 0}
   speed: 0
-  safeAltitude: 0
   headquarters: {fileID: 0}
-  direction: 
   dronesInMission: []
   chief: {fileID: 0}
   pedestrianHasStartedTraversing: 0
@@ -16333,6 +16199,7 @@ MonoBehaviour:
   initialPosition: {x: 0, y: 0, z: 0}
   timerDistance: 0
   missionSpots: []
+  cpt: 0
 --- !u!54 &459220602
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -17418,7 +17285,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &482335865 stripped
 Transform:
@@ -19036,19 +18903,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spot: {fileID: 0}
   isActive: 0
-  step1: 0
-  step2: 0
-  step3: 0
-  step4: 0
-  step5: 0
-  step6: 0
-  targetStep1: {x: 0, y: 0, z: 0}
-  targetStep2: {x: 0, y: 0, z: 0}
-  targetStep3: {x: 0, y: 0, z: 0}
+  startFromStation: 0
+  descendToSpot: 0
+  detection: 0
+  endOfMission: 0
+  backToStation: 0
+  targetPosition: {x: 0, y: 0, z: 0}
   speed: 0
-  safeAltitude: 0
   headquarters: {fileID: 0}
-  direction: 
   dronesInMission: []
   chief: {fileID: 0}
   pedestrianHasStartedTraversing: 0
@@ -19060,6 +18922,7 @@ MonoBehaviour:
   initialPosition: {x: 0, y: 0, z: 0}
   timerDistance: 0
   missionSpots: []
+  cpt: 0
 --- !u!54 &536791422
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -21622,72 +21485,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4004965118951458, guid: ffa4d200e6c7d9c4b90b3764b7ed86d4, type: 3}
   m_PrefabInstance: {fileID: 884498792}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &596902479
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 2074519376}
-    m_Modifications:
-    - target: {fileID: 1674700864803382, guid: 6825a3fe8a1605f42a0d0589e582ac40, type: 3}
-      propertyPath: m_Name
-      value: street_lamp 1 prefab (15)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4759262865471542, guid: 6825a3fe8a1605f42a0d0589e582ac40, type: 3}
-      propertyPath: m_RootOrder
-      value: 1471
-      objectReference: {fileID: 0}
-    - target: {fileID: 4759262865471542, guid: 6825a3fe8a1605f42a0d0589e582ac40, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4759262865471542, guid: 6825a3fe8a1605f42a0d0589e582ac40, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4759262865471542, guid: 6825a3fe8a1605f42a0d0589e582ac40, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4759262865471542, guid: 6825a3fe8a1605f42a0d0589e582ac40, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3.77
-      objectReference: {fileID: 0}
-    - target: {fileID: 4759262865471542, guid: 6825a3fe8a1605f42a0d0589e582ac40, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -4.800003
-      objectReference: {fileID: 0}
-    - target: {fileID: 4759262865471542, guid: 6825a3fe8a1605f42a0d0589e582ac40, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 12.27
-      objectReference: {fileID: 0}
-    - target: {fileID: 4759262865471542, guid: 6825a3fe8a1605f42a0d0589e582ac40, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.70710784
-      objectReference: {fileID: 0}
-    - target: {fileID: 4759262865471542, guid: 6825a3fe8a1605f42a0d0589e582ac40, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4759262865471542, guid: 6825a3fe8a1605f42a0d0589e582ac40, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.70710576
-      objectReference: {fileID: 0}
-    - target: {fileID: 4759262865471542, guid: 6825a3fe8a1605f42a0d0589e582ac40, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4759262865471542, guid: 6825a3fe8a1605f42a0d0589e582ac40, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 90.00001
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 6825a3fe8a1605f42a0d0589e582ac40, type: 3}
---- !u!4 &596902480 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4759262865471542, guid: 6825a3fe8a1605f42a0d0589e582ac40, type: 3}
-  m_PrefabInstance: {fileID: 596902479}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &598422082
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23001,7 +22798,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 22
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &644282806
 PrefabInstance:
@@ -24427,11 +24224,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 679807451}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -322.39, y: 71.4, z: -5.3100014}
+  m_LocalPosition: {x: -322.39, y: 71.4, z: -18.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 29
+  m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &680503677
 PrefabInstance:
@@ -24571,19 +24368,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spot: {fileID: 0}
   isActive: 0
-  step1: 0
-  step2: 0
-  step3: 0
-  step4: 0
-  step5: 0
-  step6: 0
-  targetStep1: {x: 0, y: 0, z: 0}
-  targetStep2: {x: 0, y: 0, z: 0}
-  targetStep3: {x: 0, y: 0, z: 0}
+  startFromStation: 0
+  descendToSpot: 0
+  detection: 0
+  endOfMission: 0
+  backToStation: 0
+  targetPosition: {x: 0, y: 0, z: 0}
   speed: 0
-  safeAltitude: 0
   headquarters: {fileID: 0}
-  direction: 
   dronesInMission: []
   chief: {fileID: 0}
   pedestrianHasStartedTraversing: 0
@@ -24595,6 +24387,7 @@ MonoBehaviour:
   initialPosition: {x: 0, y: 0, z: 0}
   timerDistance: 0
   missionSpots: []
+  cpt: 0
 --- !u!54 &682870290
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -24663,11 +24456,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 685308097}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -322.39, y: 71.4, z: -0.4}
+  m_LocalPosition: {x: -322.39, y: 71.4, z: -13.419998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 26
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &685882951
 PrefabInstance:
@@ -25040,7 +24833,7 @@ Transform:
   - {fileID: 1899089588}
   - {fileID: 108721437}
   m_Father: {fileID: 0}
-  m_RootOrder: 34
+  m_RootOrder: 33
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1001 &696177040
 PrefabInstance:
@@ -29194,19 +28987,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spot: {fileID: 0}
   isActive: 0
-  step1: 0
-  step2: 0
-  step3: 0
-  step4: 0
-  step5: 0
-  step6: 0
-  targetStep1: {x: 0, y: 0, z: 0}
-  targetStep2: {x: 0, y: 0, z: 0}
-  targetStep3: {x: 0, y: 0, z: 0}
+  startFromStation: 0
+  descendToSpot: 0
+  detection: 0
+  endOfMission: 0
+  backToStation: 0
+  targetPosition: {x: 0, y: 0, z: 0}
   speed: 0
-  safeAltitude: 0
   headquarters: {fileID: 0}
-  direction: 
   dronesInMission: []
   chief: {fileID: 0}
   pedestrianHasStartedTraversing: 0
@@ -29218,6 +29006,7 @@ MonoBehaviour:
   initialPosition: {x: 0, y: 0, z: 0}
   timerDistance: 0
   missionSpots: []
+  cpt: 0
 --- !u!54 &840700520
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -29336,19 +29125,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spot: {fileID: 0}
   isActive: 0
-  step1: 0
-  step2: 0
-  step3: 0
-  step4: 0
-  step5: 0
-  step6: 0
-  targetStep1: {x: 0, y: 0, z: 0}
-  targetStep2: {x: 0, y: 0, z: 0}
-  targetStep3: {x: 0, y: 0, z: 0}
+  startFromStation: 0
+  descendToSpot: 0
+  detection: 0
+  endOfMission: 0
+  backToStation: 0
+  targetPosition: {x: 0, y: 0, z: 0}
   speed: 0
-  safeAltitude: 0
   headquarters: {fileID: 0}
-  direction: 
   dronesInMission: []
   chief: {fileID: 0}
   pedestrianHasStartedTraversing: 0
@@ -29360,6 +29144,7 @@ MonoBehaviour:
   initialPosition: {x: 0, y: 0, z: 0}
   timerDistance: 0
   missionSpots: []
+  cpt: 0
 --- !u!54 &844486107
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -30768,14 +30553,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 872015637}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -324.163, y: 71.23, z: -0.601}
+  m_LocalPosition: {x: -324.163, y: 71.23, z: -13.620998}
   m_LocalScale: {x: 1, y: 1.2, z: 1}
   m_Children:
   - {fileID: 1365669437}
   - {fileID: 1894701161}
   - {fileID: 2002437965}
   m_Father: {fileID: 0}
-  m_RootOrder: 32
+  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &873694844
 PrefabInstance:
@@ -33708,19 +33493,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spot: {fileID: 0}
   isActive: 0
-  step1: 0
-  step2: 0
-  step3: 0
-  step4: 0
-  step5: 0
-  step6: 0
-  targetStep1: {x: 0, y: 0, z: 0}
-  targetStep2: {x: 0, y: 0, z: 0}
-  targetStep3: {x: 0, y: 0, z: 0}
+  startFromStation: 0
+  descendToSpot: 0
+  detection: 0
+  endOfMission: 0
+  backToStation: 0
+  targetPosition: {x: 0, y: 0, z: 0}
   speed: 0
-  safeAltitude: 0
   headquarters: {fileID: 0}
-  direction: 
   dronesInMission: []
   chief: {fileID: 0}
   pedestrianHasStartedTraversing: 0
@@ -33732,6 +33512,7 @@ MonoBehaviour:
   initialPosition: {x: 0, y: 0, z: 0}
   timerDistance: 0
   missionSpots: []
+  cpt: 0
 --- !u!54 &960858115
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -40170,7 +39951,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1130595780
 PrefabInstance:
@@ -44491,19 +44272,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spot: {fileID: 0}
   isActive: 0
-  step1: 0
-  step2: 0
-  step3: 0
-  step4: 0
-  step5: 0
-  step6: 0
-  targetStep1: {x: 0, y: 0, z: 0}
-  targetStep2: {x: 0, y: 0, z: 0}
-  targetStep3: {x: 0, y: 0, z: 0}
+  startFromStation: 0
+  descendToSpot: 0
+  detection: 0
+  endOfMission: 0
+  backToStation: 0
+  targetPosition: {x: 0, y: 0, z: 0}
   speed: 0
-  safeAltitude: 0
   headquarters: {fileID: 0}
-  direction: 
   dronesInMission: []
   chief: {fileID: 0}
   pedestrianHasStartedTraversing: 0
@@ -44515,6 +44291,7 @@ MonoBehaviour:
   initialPosition: {x: 0, y: 0, z: 0}
   timerDistance: 0
   missionSpots: []
+  cpt: 0
 --- !u!54 &1236894200
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -45648,11 +45425,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1259489841}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -319.41, y: 71.4, z: -5.3100014}
+  m_LocalPosition: {x: -319.41, y: 71.4, z: -18.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 31
+  m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1260245195
 PrefabInstance:
@@ -51520,7 +51297,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 94.42499, y: 104.492, z: 0}
 --- !u!1001 &1422325135
 PrefabInstance:
@@ -52686,19 +52463,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spot: {fileID: 0}
   isActive: 0
-  step1: 0
-  step2: 0
-  step3: 0
-  step4: 0
-  step5: 0
-  step6: 0
-  targetStep1: {x: 0, y: 0, z: 0}
-  targetStep2: {x: 0, y: 0, z: 0}
-  targetStep3: {x: 0, y: 0, z: 0}
+  startFromStation: 0
+  descendToSpot: 0
+  detection: 0
+  endOfMission: 0
+  backToStation: 0
+  targetPosition: {x: 0, y: 0, z: 0}
   speed: 0
-  safeAltitude: 0
   headquarters: {fileID: 0}
-  direction: 
   dronesInMission: []
   chief: {fileID: 0}
   pedestrianHasStartedTraversing: 0
@@ -52710,6 +52482,7 @@ MonoBehaviour:
   initialPosition: {x: 0, y: 0, z: 0}
   timerDistance: 0
   missionSpots: []
+  cpt: 0
 --- !u!54 &1459915090
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -57962,19 +57735,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spot: {fileID: 0}
   isActive: 0
-  step1: 0
-  step2: 0
-  step3: 0
-  step4: 0
-  step5: 0
-  step6: 0
-  targetStep1: {x: 0, y: 0, z: 0}
-  targetStep2: {x: 0, y: 0, z: 0}
-  targetStep3: {x: 0, y: 0, z: 0}
+  startFromStation: 0
+  descendToSpot: 0
+  detection: 0
+  endOfMission: 0
+  backToStation: 0
+  targetPosition: {x: 0, y: 0, z: 0}
   speed: 0
-  safeAltitude: 0
   headquarters: {fileID: 0}
-  direction: 
   dronesInMission: []
   chief: {fileID: 0}
   pedestrianHasStartedTraversing: 0
@@ -57986,6 +57754,7 @@ MonoBehaviour:
   initialPosition: {x: 0, y: 0, z: 0}
   timerDistance: 0
   missionSpots: []
+  cpt: 0
 --- !u!54 &1598703594
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -58676,7 +58445,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 24
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1616701438
 PrefabInstance:
@@ -60088,7 +59857,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1653878424 stripped
 Transform:
@@ -63237,7 +63006,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3975316294608759566, guid: 77da3cc29e3bd884f9aac1f5931c4765, type: 3}
       propertyPath: m_RootOrder
-      value: 25
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 3975316294608759566, guid: 77da3cc29e3bd884f9aac1f5931c4765, type: 3}
       propertyPath: m_LocalScale.x
@@ -63253,7 +63022,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3975316294608759566, guid: 77da3cc29e3bd884f9aac1f5931c4765, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.340004
+      value: -15.3600025
       objectReference: {fileID: 0}
     - target: {fileID: 3975316294608759566, guid: 77da3cc29e3bd884f9aac1f5931c4765, type: 3}
       propertyPath: m_LocalRotation.w
@@ -63972,14 +63741,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1750671743}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -317.739, y: 71.23, z: -5.142}
+  m_LocalPosition: {x: -317.739, y: 71.23, z: -18.161999}
   m_LocalScale: {x: 1, y: 1.2, z: 1}
   m_Children:
   - {fileID: 1627924231}
   - {fileID: 1021037567}
   - {fileID: 1117377469}
   m_Father: {fileID: 0}
-  m_RootOrder: 33
+  m_RootOrder: 32
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &1750732668 stripped
 Transform:
@@ -65730,19 +65499,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spot: {fileID: 0}
   isActive: 0
-  step1: 0
-  step2: 0
-  step3: 0
-  step4: 0
-  step5: 0
-  step6: 0
-  targetStep1: {x: 0, y: 0, z: 0}
-  targetStep2: {x: 0, y: 0, z: 0}
-  targetStep3: {x: 0, y: 0, z: 0}
+  startFromStation: 0
+  descendToSpot: 0
+  detection: 0
+  endOfMission: 0
+  backToStation: 0
+  targetPosition: {x: 0, y: 0, z: 0}
   speed: 0
-  safeAltitude: 0
   headquarters: {fileID: 0}
-  direction: 
   dronesInMission: []
   chief: {fileID: 0}
   pedestrianHasStartedTraversing: 0
@@ -65754,6 +65518,7 @@ MonoBehaviour:
   initialPosition: {x: 0, y: 0, z: 0}
   timerDistance: 0
   missionSpots: []
+  cpt: 0
 --- !u!54 &1794165659
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -65857,19 +65622,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spot: {fileID: 0}
   isActive: 0
-  step1: 0
-  step2: 0
-  step3: 0
-  step4: 0
-  step5: 0
-  step6: 0
-  targetStep1: {x: 0, y: 0, z: 0}
-  targetStep2: {x: 0, y: 0, z: 0}
-  targetStep3: {x: 0, y: 0, z: 0}
+  startFromStation: 0
+  descendToSpot: 0
+  detection: 0
+  endOfMission: 0
+  backToStation: 0
+  targetPosition: {x: 0, y: 0, z: 0}
   speed: 0
-  safeAltitude: 0
   headquarters: {fileID: 0}
-  direction: 
   dronesInMission: []
   chief: {fileID: 0}
   pedestrianHasStartedTraversing: 0
@@ -65881,6 +65641,7 @@ MonoBehaviour:
   initialPosition: {x: 0, y: 0, z: 0}
   timerDistance: 0
   missionSpots: []
+  cpt: 0
 --- !u!54 &1797059342
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -66347,7 +66108,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 427610, guid: 1d3b1a1513de66247974634911345b98, type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 427610, guid: 1d3b1a1513de66247974634911345b98, type: 3}
       propertyPath: m_LocalPosition.x
@@ -67017,7 +66778,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 485172, guid: 7ee69ef87f85ae447998d4abab175cf9, type: 3}
       propertyPath: m_RootOrder
-      value: 37
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 485172, guid: 7ee69ef87f85ae447998d4abab175cf9, type: 3}
       propertyPath: m_LocalScale.x
@@ -69039,7 +68800,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8978141468156404775, guid: b417a460d1f96283081c6a0e4d629c20, type: 3}
       propertyPath: m_RootOrder
-      value: 39
+      value: 38
       objectReference: {fileID: 0}
     - target: {fileID: 8978141468156404775, guid: b417a460d1f96283081c6a0e4d629c20, type: 3}
       propertyPath: m_LocalPosition.x
@@ -69452,19 +69213,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spot: {fileID: 0}
   isActive: 0
-  step1: 0
-  step2: 0
-  step3: 0
-  step4: 0
-  step5: 0
-  step6: 0
-  targetStep1: {x: 0, y: 0, z: 0}
-  targetStep2: {x: 0, y: 0, z: 0}
-  targetStep3: {x: 0, y: 0, z: 0}
+  startFromStation: 0
+  descendToSpot: 0
+  detection: 0
+  endOfMission: 0
+  backToStation: 0
+  targetPosition: {x: 0, y: 0, z: 0}
   speed: 0
-  safeAltitude: 0
   headquarters: {fileID: 0}
-  direction: 
   dronesInMission: []
   chief: {fileID: 0}
   pedestrianHasStartedTraversing: 0
@@ -69476,6 +69232,7 @@ MonoBehaviour:
   initialPosition: {x: 0, y: 0, z: 0}
   timerDistance: 0
   missionSpots: []
+  cpt: 0
 --- !u!54 &1891115814
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -70675,7 +70432,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 23
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1908340029
 PrefabInstance:
@@ -73447,11 +73204,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1977055660}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -320.87, y: 71.4, z: -0.40000153}
+  m_LocalPosition: {x: -320.87, y: 71.4, z: -13.42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 27
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1977700866 stripped
 Transform:
@@ -74777,11 +74534,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2025718615}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -319.41, y: 71.4, z: -0.40000153}
+  m_LocalPosition: {x: -319.41, y: 71.4, z: -13.42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 28
+  m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2027316427
 PrefabInstance:
@@ -75002,125 +74759,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4004965118951458, guid: ffa4d200e6c7d9c4b90b3764b7ed86d4, type: 3}
   m_PrefabInstance: {fileID: 876772699}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2031214622
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2031214627}
-  - component: {fileID: 2031214626}
-  - component: {fileID: 2031214625}
-  - component: {fileID: 2031214624}
-  - component: {fileID: 2031214623}
-  m_Layer: 8
-  m_Name: Thierry
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2031214623
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2031214622}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cc45493edc4f834a9a17ab63ae28677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0.5
-  mainCamera: {fileID: 1393393430}
-  lookSpeed: 0.5
-  rotationY: 0
-  rotationX: 0
-  isKeyWPressed: 0
-  isKeyRightPressed: 0
-  isKeyLeftPressed: 0
-  isKeyUpPressed: 0
-  isKeyDownPressed: 0
---- !u!136 &2031214624
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2031214622}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &2031214625
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2031214622}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &2031214626
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2031214622}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &2031214627
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2031214622}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -316.98, y: 70.904, z: -7.860729}
-  m_LocalScale: {x: 0.5, y: 0.7, z: 0.5}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 14
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2034420471 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4004965118951458, guid: ffa4d200e6c7d9c4b90b3764b7ed86d4, type: 3}
@@ -77948,7 +77586,6 @@ Transform:
   - {fileID: 62651390}
   - {fileID: 1510781902}
   - {fileID: 108924162}
-  - {fileID: 596902480}
   - {fileID: 1222344316}
   m_Father: {fileID: 0}
   m_RootOrder: 13
@@ -78934,7 +78571,7 @@ Transform:
   - {fileID: 298675917}
   - {fileID: 461431105}
   m_Father: {fileID: 0}
-  m_RootOrder: 35
+  m_RootOrder: 34
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2096739420
 PrefabInstance:
@@ -80609,7 +80246,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3975316294608759566, guid: 77da3cc29e3bd884f9aac1f5931c4765, type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 3975316294608759566, guid: 77da3cc29e3bd884f9aac1f5931c4765, type: 3}
       propertyPath: m_LocalScale.x
@@ -80666,7 +80303,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8978141468156404775, guid: b417a460d1f96283081c6a0e4d629c20, type: 3}
       propertyPath: m_RootOrder
-      value: 38
+      value: 37
       objectReference: {fileID: 0}
     - target: {fileID: 8978141468156404775, guid: b417a460d1f96283081c6a0e4d629c20, type: 3}
       propertyPath: m_LocalPosition.x

@@ -4,25 +4,20 @@ using UnityEngine;
 
 public class Drone : MonoBehaviour
 {
-    public GameObject spot = null;
-    public bool isActive;
-    public bool step1;
-    public bool step2;
-    public bool step3;
-    public bool step4;
-    public bool step5;
-    public bool step6;
-    public Vector3 targetStep1;
-    public Vector3 targetStep2;
-    public Vector3 targetStep3;
+    public GameObject spot = null; //assigned spot
+    public bool isActive; //this bool is true if the drone has been assigned to a mission, false otherwise
+    public bool startFromStation; //during this step the drone goes over its assigned spot
+    public bool descendToSpot; //during this step the drone descends towards its spot
+    public bool detection; //during this step the drone throws many raycasts to detect pedestrians
+    public bool endOfMission; //during this step the drone takes altitude again in order to be high enough
+    public bool backToStation; //during this step the drone goes back to its original location
+    public Vector3 targetPosition; //location where the drone has to go. Its value changes many times as the steps change
     public float speed;
-    public float safeAltitude;
-    public ControlStation headquarters;
-    public string direction;
+    public ControlStation headquarters; //control station
     public List<Drone> dronesInMission = new List<Drone>();
     public Drone chief = null;
-    public bool pedestrianHasStartedTraversing;
-    public int numberOfDetections;
+    public bool pedestrianHasStartedTraversing; //true from the moment a pedestrian is detected, false otherwise
+    public int numberOfDetections; //the number of rays which detected a pedestrian at each iteration
     public float timerMissionEnd = 0f;
     public bool blink;
     public float timerBlink = 0f;
@@ -30,54 +25,41 @@ public class Drone : MonoBehaviour
     public Vector3 initialPosition;
     public float timerDistance = 0f;
     public GameObject[] missionSpots;
-    public int cpt = 0;
+    public int cpt = 0; //this counter is incremented for the chief as each drone arrives to its assigned spot
 
 
     void DetectionLaser()
     {
-        Vector3 current_pos = transform.position;
-        for(float i = -0.5f ; i <= 0.5f ; i=i+0.1f) 
-            {
-                    Vector3 detectionDirection;
-                    if(this.spot.name.Contains("Spot1") || this.spot.name.Contains("Spot2") || this.spot.name.Contains("Spot3")) 
-                        detectionDirection = Vector3.back;
-                    else //(this.spot.name.Contains("spot4") || this.spot.name.Contains("spot5") || this.spot.name.Contains("spot6"))
-                        detectionDirection = Vector3.forward;
-                    detectionDirection.x = i;
-                    var ray = new Ray(current_pos, transform.TransformDirection(detectionDirection)); //each ray has to begin from the drone's current position and has to be directed towards the ground in a way that the intersection is a square
-                    Vector3 drawDown = transform.TransformDirection(detectionDirection * 2.5f);
-                    Debug.DrawRay(current_pos, drawDown, Color.blue);
-                    RaycastHit hit;
+        Vector3 detectionDirection;
+        if(this.spot.name.Contains("Spot1") || this.spot.name.Contains("Spot2") || this.spot.name.Contains("Spot3")) 
+            detectionDirection = Vector3.back;
+        else
+            detectionDirection = Vector3.forward;
 
-                    if (Physics.Raycast(ray, out hit, 2.5f)) 
-                    {
-                        if(!this.chief.pedestrianHasStartedTraversing)
-                            this.chief.pedestrianHasStartedTraversing = true;
-                        this.chief.numberOfDetections++;
-                    }
+        for(float i = -0.5f ; i <= 0.5f ; i=i+0.1f) 
+        {
+            detectionDirection.x = i;
+            var ray = new Ray(this.transform.position, transform.TransformDirection(detectionDirection));
+            Vector3 drawDown = transform.TransformDirection(detectionDirection * 2.5f);
+            Debug.DrawRay(this.transform.position, drawDown, Color.blue);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, 2.5f)) 
+            {
+                this.chief.pedestrianHasStartedTraversing = true;
+                this.chief.numberOfDetections++;
             }
+        }
         
 
     }
 
-    void IsPedestrianStillTraversing(string order="nvm")
+    bool ShouldMissionEnd()
     {
-        if(this == this.chief)
-        {
-            if((this.numberOfDetections == 0 && pedestrianHasStartedTraversing) || order == "troll")
-            {
-                this.timerMissionEnd += Time.deltaTime;
-                foreach(Drone drone in this.dronesInMission)
-                {
-                    drone.step4 = false;
-                    drone.step5 = true;
-                }
-                this.headquarters.currentlyUsedSpots.Remove(this.missionSpots);
-            }
-            else
-                this.numberOfDetections = 0;
-        }
+        return (this.chief == this) ? (this.numberOfDetections == 0 && this.pedestrianHasStartedTraversing) ? true : (this.chief.timerMissionEnd > 5f) ? true : false : false; //hell
     }
+
+
 
     int GetSpotID()
     {
@@ -87,18 +69,23 @@ public class Drone : MonoBehaviour
 
     }
 
+
+    void MissionPlanning()
+    {
+        this.targetPosition = new Vector3(this.spot.transform.position.x, this.transform.position.y, this.spot.transform.position.z);
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
         this.isActive = false;
-        this.step1 = false;
-        this.step2 = false;
-        this.step3 = false;
-        this.step4 = false;
-        this.step5 = false;
-        this.step6 = false;
+        this.startFromStation = false;
+        this.descendToSpot = false;
+        this.detection = false;
+        this.endOfMission = false;
+        this.backToStation = false;
         this.speed = 10f;
-        this.safeAltitude = 90f;
         this.headquarters = GameObject.Find("Headquarters").GetComponent<ControlStation>();
         this.pedestrianHasStartedTraversing = false;
         this.numberOfDetections = 0;
@@ -114,75 +101,76 @@ public class Drone : MonoBehaviour
         return int.Parse(id[1]);
     }
 
+
+    float[] GetDistanceFromTarget(int x, int y, int z)
+    {
+        float[] returnTab = {0f,0f,0f};
+        if(x == 1)
+            returnTab[0] = Mathf.Abs(this.transform.position.x - this.targetPosition.x);
+        if(y == 1)
+            returnTab[1] = Mathf.Abs(this.transform.position.y - this.targetPosition.y);
+        if(z == 1)
+            returnTab[2] = Mathf.Abs(this.transform.position.z - this.targetPosition.z);
+    
+        return returnTab;
+    }
+
+
+    void Move()
+    {
+        this.transform.position = Vector3.MoveTowards(this.transform.position, this.targetPosition, this.speed * Time.deltaTime);
+    }
+
     // Update is called once per frame
     void Update()
     {
 
         if(this.isActive)
         {
-
-            foreach(Drone drone in this.chief.dronesInMission)
+            //this foreach loop is supposed to prevent collisions but it's meh
+            /*foreach(Drone drone in this.chief.dronesInMission)
             {
                 if(drone.name == this.name)
                     continue;
                 
-                float dX = Mathf.Abs(this.transform.position.x - drone.transform.position.x);
-                float dY = Mathf.Abs(this.transform.position.y - drone.transform.position.y);
-                float dZ = Mathf.Abs(this.transform.position.z - drone.transform.position.z);
+                float[] dist = GetDistanceFromTarget(1,1,1);
                 
-                if(dX <= 0.5f && dY < 0.5f && dZ <= 0.5f && this.GetDroneID() > drone.GetDroneID())
+                if(dist[0] <= 0.5f && dist[1] < 0.5f && dist[2] <= 0.5f && this.GetDroneID() > drone.GetDroneID())
                 {
                     this.isActive = false;
                     this.timerDistance += Time.deltaTime;
                 }
             }
+            */
 
-            if(this.step1) //elevation to safeDistance
+            if(this.startFromStation) //moves from station to over the spot       ===> startFromStation
             {
+                float[] dist = GetDistanceFromTarget(1,0,1);
+                
+                Move();
 
-                transform.position = Vector3.MoveTowards(transform.position, targetStep1, this.speed * Time.deltaTime);
-
-                float dY = Mathf.Abs(this.transform.position.y - targetStep1.y);
-
-                if(dY <= 0.1f)
+                if(dist[0] <= 0.1f && dist[2] <= 0.1f)
                 {
-                    this.step1 = false;
-                    this.step2 = true;
-                    this.targetStep2 = new Vector3(this.spot.transform.position.x, this.transform.position.y, this.spot.transform.position.z);
+                    this.startFromStation = false;
+                    this.descendToSpot = true;
+                    this.targetPosition = new Vector3(this.transform.position.x, this.spot.transform.position.y, this.transform.position.z);
                 }
             }
-
-            else if(this.step2) //moves from station to over the spot
+            else if(this.descendToSpot) //decreases altitude to the spot             ===> descendToSpotStep
             {
-                float dX = Mathf.Abs(this.transform.position.x - this.spot.transform.position.x);
-                float dZ = Mathf.Abs(this.transform.position.z - this.spot.transform.position.z);
+                Move();
 
-                transform.position = Vector3.MoveTowards(transform.position, targetStep2, this.speed * Time.deltaTime);
-
-                if(dX <= 0.1f && dZ <= 0.1f)
+                if(GetDistanceFromTarget(0,1,0)[1] <= 0.1f)
                 {
-                    this.step2 = false;
-                    this.step3 = true;
-                    this.targetStep3 = new Vector3(this.transform.position.x, this.spot.transform.position.y, this.transform.position.z);
-                }
-            }
-            else if(this.step3) //decreases altitude to the spot
-            {
-                transform.position = Vector3.MoveTowards(transform.position, targetStep3, this.speed * Time.deltaTime);
-
-                float dY = Mathf.Abs(this.transform.position.y - targetStep3.y);
-
-
-                if(dY <= 0.1f)
-                {
-                    this.step3 = false;
+                    this.descendToSpot = false;
                     this.chief.cpt++;
-                    this.step4 = true;
+                    this.detection = true;
+                    this.targetPosition = new Vector3(this.transform.position.x, this.initialPosition.y, this.transform.position.z);
                 }
 
             }
 
-            else if(this.step4) //starts blinking and detecting
+            else if(this.detection) //starts blinking and detecting
             {
                 if(blink)
                 {
@@ -211,58 +199,55 @@ public class Drone : MonoBehaviour
                         this.timerBlink = 0f;
                     }
                     DetectionLaser();
-                    IsPedestrianStillTraversing();
-                
+
                     if(!this.chief.pedestrianHasStartedTraversing)
+                        this.timerMissionEnd += Time.deltaTime;
+
+                    if(ShouldMissionEnd())
                     {
-                        if(this.timerMissionEnd < 5f)
+                        foreach(Drone drone in this.dronesInMission)
                         {
-                            this.timerMissionEnd += Time.deltaTime;
+                            drone.detection = false;
+                            drone.endOfMission = true;
                         }
-                        else //the person who called the drones is probably not using the crosswalk
-                        {
-                            this.timerMissionEnd = 3f;
-                            IsPedestrianStillTraversing("troll");
-                        }
+                        this.headquarters.currentlyUsedSpots.Remove(this.missionSpots);
                     }
+                    this.numberOfDetections = 0;
+                    
                 }
             }
 
-            else if(this.step5) //pedestrian has finished crossing, drone elevates again
+            else if(this.endOfMission) //pedestrian has finished crossing, drone elevates again
             {
 
-                if(this.timerMissionEnd < 3f)
+                if(this.timerMissionEnd < 2f)
                 {
                     this.timerMissionEnd += Time.deltaTime;
                     this.transform.GetChild(2).GetComponent<Renderer>().material.color = Color.green;
                 }
                 else
                 {
-                    Vector3 newPos = new Vector3(this.transform.position.x, this.initialPosition.y, this.transform.position.z);
-                    this.transform.position = Vector3.MoveTowards(this.transform.position, newPos, this.speed * Time.deltaTime);
+                    Move();
 
-                    float dY = Mathf.Abs(this.transform.position.y - newPos.y);
-
-                    if(dY <= 0.1f)
+                    if(GetDistanceFromTarget(0,1,0)[1] <= 0.1f)
                     {
-                        this.step5 = false;
+                        this.endOfMission = false;
                         this.timerMissionEnd = 0f;
                         this.transform.GetChild(2).GetComponent<Renderer>().material.color = this.originalColor;
-                        this.step6 = true;
+                        this.backToStation = true;
+                        this.targetPosition = this.initialPosition;
                     }
                 }    
             }
-            else if(this.step6) // goes to its original station
+            else if(this.backToStation) // goes to its original station
             {
-                Vector3 newPos = new Vector3(this.initialPosition.x, this.transform.position.y, this.initialPosition.z);
-                this.transform.position = Vector3.MoveTowards(this.transform.position, newPos, this.speed * Time.deltaTime);
+                Move();
 
-                float dX = Mathf.Abs(this.transform.position.x - this.initialPosition.x);
-                float dZ = Mathf.Abs(this.transform.position.z - this.initialPosition.z);
+                float[] dist = GetDistanceFromTarget(1,0,1);
 
-                if(dX <= 0.1f && dZ <= 0.1f)
+                if(dist[0] <= 0.1f && dist[2] <= 0.1f)
                 {
-                    this.step6 = false;
+                    this.backToStation = false;
                     this.isActive = false;
                     this.headquarters.numberOfDronesAvailable++;
                     if(this == this.chief)
@@ -279,6 +264,7 @@ public class Drone : MonoBehaviour
 
         }
 
+        //this else works with the collision foreach loop
         else
         {
             if(this.timerDistance > 0f)

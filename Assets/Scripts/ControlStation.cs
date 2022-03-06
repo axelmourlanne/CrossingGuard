@@ -87,9 +87,8 @@ public class ControlStation : MonoBehaviour
                     }
                     chief.dronesInMission.Add(drone);
                     this.numberOfDronesAvailable--;
-                    drone.targetStep1 = new Vector3(drone.transform.position.x, drone.safeAltitude, drone.transform.position.z);
                     drone.isActive = true;
-                    drone.step1 = true;
+                    drone.startFromStation = true;
                     drone.chief = chief;
 
                     if(chief.dronesInMission.Count == 6)
@@ -102,12 +101,7 @@ public class ControlStation : MonoBehaviour
             foreach(Drone drone in chief.dronesInMission)
             {
                 drone.spot = missionSpots[i];
-                // if(this.IndexOf(missionSpots, drone.spot) < 3) 
-                //     drone.direction = "back";
-                // else if(this.IndexOf(missionSpots, drone.spot) < 6)
-                //     drone.direction = "forward";
-                // else // >= 6, weird
-                //     this.allSpots[buttonTag - 1].Remove(drone);
+                drone.targetPosition = new Vector3(drone.spot.transform.position.x, drone.transform.position.y, drone.spot.transform.position.z);
                 i++;
             }
         }
