@@ -9,6 +9,8 @@ TagManager:
   - 2
   - spot2
   - crossing
+  - spot3
+  - 3
   layers:
   - Default
   - TransparentFX
