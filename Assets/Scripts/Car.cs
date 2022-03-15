@@ -12,7 +12,7 @@ public class Car : MonoBehaviour
 
     void Start()
     {
-        speed = 0;
+        speed = Parameters.carSpeed;
         initialPosition = transform.position;
     }
 

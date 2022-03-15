@@ -85,7 +85,7 @@ public class Drone : MonoBehaviour
         this.detection = false;
         this.endOfMission = false;
         this.backToStation = false;
-        this.speed = 10f;
+        this.speed = Parameters.droneSpeed;
         this.headquarters = GameObject.Find("Headquarters").GetComponent<ControlStation>();
         this.pedestrianHasStartedTraversing = false;
         this.numberOfDetections = 0;

@@ -5,10 +5,10 @@ using UnityEngine;
 public class Human : MonoBehaviour
 {
 
-    public float speed = 0.5f;
+    public float speed;
     public Camera mainCamera;
-    public float lookSpeed = 1.5f; //speed at which the camera can rotate on the y axis 
-    public float rotationY = 0f; //float the record how much the mouse moves (left/right)
+    public float lookSpeed; //speed at which the camera can rotate on the y axis 
+    public float rotationY; //float the record how much the mouse moves (left/right)
     public bool isKeyWPressed; //boolean that is set to true when the 'W' key is pressed (Input.GetKeyDown) and to false when the key isn't pressed anymore (Input.GetKeyUp)
     public bool isKeyRightPressed; //boolean that is set to true when the right arrow key is pressed (Input.GetKeyDown) and to false when the key isn't pressed anymore (Input.GetKeyUp)
     public bool isKeyLeftPressed; //boolean that is set to true when the left arrow key is pressed (Input.GetKeyDown) and to false when the key isn't pressed anymore (Input.GetKeyUp)
@@ -23,9 +23,12 @@ public class Human : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        isKeyWPressed = false;
-        isKeyLeftPressed = false;
-        isKeyRightPressed = false;
+        this.isKeyWPressed = false;
+        this.isKeyLeftPressed = false;
+        this.isKeyRightPressed = false;
+        this.speed = Parameters.humanSpeed;
+        this.lookSpeed = Parameters.humanLookSpeed;
+        this.rotationY = Parameters.humanRotationY;
     }
 
     // Update is called once per frame
