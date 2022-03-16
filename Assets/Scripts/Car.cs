@@ -9,11 +9,14 @@ public class Car : MonoBehaviour
     public float normalSpeed;
     private float speed;
     private bool decelerate = false;
+    public float timerBackUp;
 
     void Start()
     {
-        speed = Parameters.carSpeed;
-        initialPosition = transform.position;
+        this.speed = Parameters.carSpeed;
+        this.normalSpeed = Parameters.carNormalSpeed;
+        this.initialPosition = transform.position;
+        this.timerBackUp = 0f;
     }
 
     void DetectionLaser()
@@ -71,14 +74,31 @@ public class Car : MonoBehaviour
         if (decelerate)
         {
             this.speed -= Mathf.Max(speed, 8) * Time.deltaTime;
-            if (this.speed <= 0) this.speed = 0;
+            if(this.speed <= 0) 
+                this.speed = 0;
+            if(this.timerBackUp > 0f)
+            {
+                if(this.speed == 0f)
+                {
+                    this.transform.position += -1f * this.transform.right * this.normalSpeed * Time.deltaTime;
+                    this.timerBackUp += Time.deltaTime;
+                }
+                if(this.timerBackUp > 2f)
+                    this.timerBackUp = 0f;
+            }
         }
         else
         {
             this.speed += Mathf.Max(speed, 8) * Time.deltaTime;
             if (this.speed >= normalSpeed) this.speed = normalSpeed;
         }
-
-        this.transform.position += this.transform.right * this.speed * Time.deltaTime;
+        
+        if(this.decelerate && this.timerBackUp > 0f) //it's blocking a drone
+        {    
+            this.transform.position += -1f * this.transform.right * this.speed * Time.deltaTime;
+            this.timerBackUp += Time.deltaTime;
+        }
+        else
+            this.transform.position += this.transform.right * this.speed * Time.deltaTime;
     }
 }

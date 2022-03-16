@@ -46,14 +46,14 @@ public class Human : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.LeftArrow)) //to move left (from the camera's view it would be left)
             this.isKeyLeftPressed = true;
         if(this.isKeyLeftPressed)
-            this.rotationY += 90 * lookSpeed * Time.deltaTime;
+            this.rotationY += lookSpeed * Time.deltaTime;
         if(Input.GetKeyUp(KeyCode.LeftArrow))
             this.isKeyLeftPressed = false;
 
         if(Input.GetKeyDown(KeyCode.RightArrow)) //to move right (from the camera's view it would be right)
             this.isKeyRightPressed = true;
         if(this.isKeyRightPressed)
-            this.rotationY += -90 * lookSpeed * Time.deltaTime;
+            this.rotationY += -1f * lookSpeed * Time.deltaTime;
         if(Input.GetKeyUp(KeyCode.RightArrow))
             this.isKeyRightPressed = false;
     }

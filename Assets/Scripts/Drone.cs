@@ -28,7 +28,7 @@ public class Drone : MonoBehaviour
     public int cpt = 0; //this counter is incremented for the chief as each drone arrives to its assigned spot
 
 
-    void DetectionLaser()
+    void PedestrianDetectionLaser()
     {
         Vector3 detectionDirection;
         if(this.spot.name.Contains("Spot1") || this.spot.name.Contains("Spot2") || this.spot.name.Contains("Spot3")) 
@@ -54,19 +54,30 @@ public class Drone : MonoBehaviour
 
     }
 
-    bool ShouldMissionEnd()
+
+    void CarDetectionLaser() 
     {
-        return (this.chief == this) ? (this.numberOfDetections == 0 && this.pedestrianHasStartedTraversing) ? true : (this.chief.timerMissionEnd > 5f) ? true : false : false; //hell
+        var ray = new Ray(transform.position, transform.TransformDirection(Vector3.down));
+        RaycastHit hit;
+        int layerMask = 1 << 10;
+        if (Physics.Raycast(ray, out hit, 5f, layerMask))
+        {
+            this.chief.cpt++;
+            hit.transform.gameObject.GetComponent<Car>().timerBackUp += Time.deltaTime;
+        }    
+        else
+            Move();
     }
 
 
-
-    int GetSpotID()
+    bool ShouldMissionEnd()
     {
-        string[] id = this.spot.name.Split('t'); 
-        string[] id2 = id[1].Split('(');
-        return int.Parse(id[0]);
-
+        if(this == this.chief)
+        {
+            if((this.numberOfDetections == 0 && this.pedestrianHasStartedTraversing) || this.chief.timerMissionEnd > 5f)
+                return true;
+        }
+        return false;
     }
 
 
@@ -76,7 +87,6 @@ public class Drone : MonoBehaviour
     }
 
 
-    // Start is called before the first frame update
     void Start()
     {
         this.isActive = false;
@@ -92,13 +102,6 @@ public class Drone : MonoBehaviour
         this.blink = false;
         this.originalColor = this.transform.GetChild(2).GetComponent<Renderer>().material.color;
         this.initialPosition = this.transform.position;
-    }
-
-    int GetDroneID()
-    {
-
-        string[] id = this.name.Split('e'); 
-        return int.Parse(id[1]);
     }
 
 
@@ -121,29 +124,13 @@ public class Drone : MonoBehaviour
         this.transform.position = Vector3.MoveTowards(this.transform.position, this.targetPosition, this.speed * Time.deltaTime);
     }
 
-    // Update is called once per frame
+
     void Update()
     {
 
         if(this.isActive)
         {
-            //this foreach loop is supposed to prevent collisions but it's meh
-            /*foreach(Drone drone in this.chief.dronesInMission)
-            {
-                if(drone.name == this.name)
-                    continue;
-                
-                float[] dist = GetDistanceFromTarget(1,1,1);
-                
-                if(dist[0] <= 0.5f && dist[1] < 0.5f && dist[2] <= 0.5f && this.GetDroneID() > drone.GetDroneID())
-                {
-                    this.isActive = false;
-                    this.timerDistance += Time.deltaTime;
-                }
-            }
-            */
-
-            if(this.startFromStation) //moves from station to over the spot       ===> startFromStation
+            if(this.startFromStation) //moves from station to over the spot
             {
                 float[] dist = GetDistanceFromTarget(1,0,1);
                 
@@ -156,10 +143,9 @@ public class Drone : MonoBehaviour
                     this.targetPosition = new Vector3(this.transform.position.x, this.spot.transform.position.y, this.transform.position.z);
                 }
             }
-            else if(this.descendToSpot) //decreases altitude to the spot             ===> descendToSpotStep
+            else if(this.descendToSpot) //decreases altitude to the spot
             {
-                Move();
-
+                CarDetectionLaser();
                 if(GetDistanceFromTarget(0,1,0)[1] <= 0.1f)
                 {
                     this.descendToSpot = false;
@@ -188,7 +174,7 @@ public class Drone : MonoBehaviour
                         this.transform.GetChild(2).GetComponent<Renderer>().material.color = Color.blue;
                 }
 
-                if(this.chief.cpt == 6) //every drone has arrived and starts blinking + detecting pedestrians
+                if(this.chief.cpt >= 6) //every drone has arrived and starts blinking + detecting pedestrians
                 {
                     if(this.timerBlink <= 0.75f)
                         this.timerBlink += Time.deltaTime;
@@ -198,7 +184,7 @@ public class Drone : MonoBehaviour
                         this.blink = !this.blink;
                         this.timerBlink = 0f;
                     }
-                    DetectionLaser();
+                    PedestrianDetectionLaser();
 
                     if(!this.chief.pedestrianHasStartedTraversing)
                         this.timerMissionEnd += Time.deltaTime;
@@ -208,6 +194,7 @@ public class Drone : MonoBehaviour
                         foreach(Drone drone in this.dronesInMission)
                         {
                             drone.detection = false;
+                            drone.descendToSpot = false; //in case a car is blocking a drone
                             drone.endOfMission = true;
                         }
                         this.headquarters.currentlyUsedSpots.Remove(this.missionSpots);
@@ -220,7 +207,7 @@ public class Drone : MonoBehaviour
             else if(this.endOfMission) //pedestrian has finished crossing, drone elevates again
             {
 
-                if(this.timerMissionEnd < 2f)
+                if(this.timerMissionEnd < 3f)
                 {
                     this.timerMissionEnd += Time.deltaTime;
                     this.transform.GetChild(2).GetComponent<Renderer>().material.color = Color.green;
