@@ -24,8 +24,11 @@ public class Drone : MonoBehaviour
     public Color originalColor; 
     public Vector3 initialPosition;
     public float timerDistance = 0f;
+    public float timerAutonomy = 0f;
     public GameObject[] missionSpots;
     public int cpt = 0; //this counter is incremented for the chief as each drone arrives to its assigned spot
+    public int autonomy;
+    public bool batteryLow;
 
 
     void PedestrianDetectionLaser()
@@ -44,7 +47,7 @@ public class Drone : MonoBehaviour
             Debug.DrawRay(this.transform.position, drawDown, Color.blue);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, 2.5f)) 
+            if (Physics.Raycast(ray, out hit, 2.5f, 1 << 8)) 
             {
                 this.chief.pedestrianHasStartedTraversing = true;
                 this.chief.numberOfDetections++;
@@ -96,12 +99,14 @@ public class Drone : MonoBehaviour
         this.endOfMission = false;
         this.backToStation = false;
         this.speed = Parameters.droneSpeed;
+        this.autonomy = Parameters.droneAutonomy;
         this.headquarters = GameObject.Find("Headquarters").GetComponent<ControlStation>();
         this.pedestrianHasStartedTraversing = false;
         this.numberOfDetections = 0;
         this.blink = false;
         this.originalColor = this.transform.GetChild(2).GetComponent<Renderer>().material.color;
         this.initialPosition = this.transform.position;
+        this.batteryLow = false;
     }
 
 
@@ -127,9 +132,23 @@ public class Drone : MonoBehaviour
 
     void Update()
     {
+        this.timerAutonomy += Time.deltaTime;
 
         if(this.isActive)
         {
+            if(this.timerAutonomy > 1f)
+            {
+                this.timerAutonomy = 0f;
+                if(this.autonomy > 0)
+                    this.autonomy--;
+            }
+
+            if(autonomy == 0 && !this.batteryLow)
+            {
+                this.batteryLow = true;
+                this.headquarters.RequestForChargedDrone(this);
+            }
+
             if(this.startFromStation) //moves from station to over the spot
             {
                 float[] dist = GetDistanceFromTarget(1,0,1);
@@ -236,7 +255,6 @@ public class Drone : MonoBehaviour
                 {
                     this.backToStation = false;
                     this.isActive = false;
-                    this.headquarters.numberOfDronesAvailable++;
                     if(this == this.chief)
                     {
                         this.pedestrianHasStartedTraversing = false;
@@ -254,16 +272,14 @@ public class Drone : MonoBehaviour
         //this else works with the collision foreach loop
         else
         {
-            if(this.timerDistance > 0f)
+
+            if(this.timerAutonomy > 1f)
             {
-                if(this.timerDistance < 1f)
-                    this.timerDistance += Time.deltaTime;
-                else
-                {
-                    this.isActive = true;
-                    this.timerDistance = 0f;
-                }
+                this.timerAutonomy = 0f;
+                if(this.autonomy < 100)
+                    this.autonomy++;
             }
+
         }
     }
 

@@ -15961,8 +15961,11 @@ MonoBehaviour:
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   initialPosition: {x: 0, y: 0, z: 0}
   timerDistance: 0
+  timerAutonomy: 0
   missionSpots: []
   cpt: 0
+  autonomy: 0
+  batteryLow: 0
 --- !u!54 &459220602
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -15990,7 +15993,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.9864611, y: 0.48904306, z: 2.2380536}
+  m_Size: {x: 3.5, y: 0.48904306, z: 3.5}
   m_Center: {x: 0.007010832, y: 0.00031320006, z: 0.076481156}
 --- !u!1001 &459556028
 PrefabInstance:
@@ -18589,8 +18592,11 @@ MonoBehaviour:
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   initialPosition: {x: 0, y: 0, z: 0}
   timerDistance: 0
+  timerAutonomy: 0
   missionSpots: []
   cpt: 0
+  autonomy: 0
+  batteryLow: 0
 --- !u!54 &536791422
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -18618,7 +18624,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.9864611, y: 0.48904306, z: 2.2380536}
+  m_Size: {x: 3.5, y: 0.48904306, z: 3.5}
   m_Center: {x: 0.007010832, y: 0.00031320006, z: 0.076481156}
 --- !u!1001 &538081221
 PrefabInstance:
@@ -24024,8 +24030,11 @@ MonoBehaviour:
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   initialPosition: {x: 0, y: 0, z: 0}
   timerDistance: 0
+  timerAutonomy: 0
   missionSpots: []
   cpt: 0
+  autonomy: 0
+  batteryLow: 0
 --- !u!54 &682870290
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -24053,7 +24062,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.9864611, y: 0.48904306, z: 2.2380536}
+  m_Size: {x: 3.5, y: 0.48904306, z: 3.5}
   m_Center: {x: 0.007010832, y: 0.00031320006, z: 0.076481156}
 --- !u!4 &683294815 stripped
 Transform:
@@ -28580,8 +28589,11 @@ MonoBehaviour:
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   initialPosition: {x: 0, y: 0, z: 0}
   timerDistance: 0
+  timerAutonomy: 0
   missionSpots: []
   cpt: 0
+  autonomy: 0
+  batteryLow: 0
 --- !u!54 &840700520
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -28609,7 +28621,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.9864611, y: 0.48904306, z: 2.2380536}
+  m_Size: {x: 3.5, y: 0.48904306, z: 3.5}
   m_Center: {x: 0.007010832, y: 0.00031320006, z: 0.076481156}
 --- !u!4 &840753582 stripped
 Transform:
@@ -28718,8 +28730,11 @@ MonoBehaviour:
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   initialPosition: {x: 0, y: 0, z: 0}
   timerDistance: 0
+  timerAutonomy: 0
   missionSpots: []
   cpt: 0
+  autonomy: 0
+  batteryLow: 0
 --- !u!54 &844486107
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -28747,7 +28762,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.9864611, y: 0.48904306, z: 2.2380536}
+  m_Size: {x: 3.5, y: 0.48904306, z: 3.5}
   m_Center: {x: 0.007010832, y: 0.00031320006, z: 0.076481156}
 --- !u!1001 &845372979
 PrefabInstance:
@@ -33053,8 +33068,11 @@ MonoBehaviour:
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   initialPosition: {x: 0, y: 0, z: 0}
   timerDistance: 0
+  timerAutonomy: 0
   missionSpots: []
   cpt: 0
+  autonomy: 0
+  batteryLow: 0
 --- !u!54 &960858115
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -33082,7 +33100,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.9864611, y: 0.48904306, z: 2.2380536}
+  m_Size: {x: 3.5, y: 0.48904306, z: 3.5}
   m_Center: {x: 0.007010832, y: 0.00031320006, z: 0.076481156}
 --- !u!4 &961064191 stripped
 Transform:
@@ -43611,8 +43629,11 @@ MonoBehaviour:
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   initialPosition: {x: 0, y: 0, z: 0}
   timerDistance: 0
+  timerAutonomy: 0
   missionSpots: []
   cpt: 0
+  autonomy: 0
+  batteryLow: 0
 --- !u!54 &1236894200
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -43640,7 +43661,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.9864611, y: 0.48904306, z: 2.2380536}
+  m_Size: {x: 3.5, y: 0.48904306, z: 3.5}
   m_Center: {x: 0.007010832, y: 0.00031320006, z: 0.076481156}
 --- !u!4 &1238835494 stripped
 Transform:
@@ -47313,6 +47334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalSpeed: 10
+  timerBackUp: 0
 --- !u!65 &1329317285
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -51690,8 +51712,11 @@ MonoBehaviour:
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   initialPosition: {x: 0, y: 0, z: 0}
   timerDistance: 0
+  timerAutonomy: 0
   missionSpots: []
   cpt: 0
+  autonomy: 0
+  batteryLow: 0
 --- !u!54 &1459915090
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -51719,7 +51744,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.9864611, y: 0.48904306, z: 2.2380536}
+  m_Size: {x: 3.5, y: 0.48904306, z: 3.5}
   m_Center: {x: 0.007010832, y: 0.00031320006, z: 0.076481156}
 --- !u!1001 &1460177582
 PrefabInstance:
@@ -56962,8 +56987,11 @@ MonoBehaviour:
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   initialPosition: {x: 0, y: 0, z: 0}
   timerDistance: 0
+  timerAutonomy: 0
   missionSpots: []
   cpt: 0
+  autonomy: 0
+  batteryLow: 0
 --- !u!54 &1598703594
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -56991,7 +57019,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.9864611, y: 0.48904306, z: 2.2380536}
+  m_Size: {x: 3.5, y: 0.48904306, z: 3.5}
   m_Center: {x: 0.007010832, y: 0.00031320006, z: 0.076481156}
 --- !u!1001 &1600340574
 PrefabInstance:
@@ -57151,6 +57179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalSpeed: 5
+  timerBackUp: 0
 --- !u!65 &1601246205
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -57653,7 +57682,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drones: []
-  numberOfDronesAvailable: 0
+  numberOfDronesNecessary: 0
   range: 100
 --- !u!4 &1615815958
 Transform:
@@ -64493,8 +64522,11 @@ MonoBehaviour:
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   initialPosition: {x: 0, y: 0, z: 0}
   timerDistance: 0
+  timerAutonomy: 0
   missionSpots: []
   cpt: 0
+  autonomy: 0
+  batteryLow: 0
 --- !u!54 &1794165659
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -64522,7 +64554,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.9864611, y: 0.48904306, z: 2.2380536}
+  m_Size: {x: 3.5, y: 0.48904306, z: 3.5}
   m_Center: {x: 0.007010832, y: 0.00031320006, z: 0.076481156}
 --- !u!4 &1794891463 stripped
 Transform:
@@ -64616,8 +64648,11 @@ MonoBehaviour:
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   initialPosition: {x: 0, y: 0, z: 0}
   timerDistance: 0
+  timerAutonomy: 0
   missionSpots: []
   cpt: 0
+  autonomy: 0
+  batteryLow: 0
 --- !u!54 &1797059342
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -64645,7 +64680,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.9864611, y: 0.48904306, z: 2.2380536}
+  m_Size: {x: 3.5, y: 0.48904306, z: 3.5}
   m_Center: {x: 0.007010832, y: 0.00031320006, z: 0.076481156}
 --- !u!4 &1797145784 stripped
 Transform:
@@ -65088,7 +65123,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 427610, guid: 1d3b1a1513de66247974634911345b98, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -319.37
+      value: -318.76
       objectReference: {fileID: 0}
     - target: {fileID: 427610, guid: 1d3b1a1513de66247974634911345b98, type: 3}
       propertyPath: m_LocalPosition.y
@@ -68227,8 +68262,11 @@ MonoBehaviour:
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   initialPosition: {x: 0, y: 0, z: 0}
   timerDistance: 0
+  timerAutonomy: 0
   missionSpots: []
   cpt: 0
+  autonomy: 0
+  batteryLow: 0
 --- !u!54 &1891115814
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -68256,7 +68294,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.9864611, y: 0.48904306, z: 2.2380536}
+  m_Size: {x: 3.5, y: 0.48904306, z: 3.5}
   m_Center: {x: 0.007010832, y: 0.00031320006, z: 0.076481156}
 --- !u!1001 &1891408637
 PrefabInstance:

@@ -24,11 +24,13 @@ public class Car : MonoBehaviour
         Vector3 current_pos = transform.position;
         //current_pos.z += 0.5f;
 
-        for (float i = 0 ; i <= 0.3f ; i += 0.015f)
+        for (float i = 0f ; i <= 0.3f ; i += 0.015f)
+            for(float j = -0.1f ; j <= 0.1f ; j += 0.015f)
         {
+            {
 
             Vector3 detectionDirection = Vector3.right;
-            
+            detectionDirection.z = j;
             detectionDirection.y = i;
 
             var ray = new Ray(current_pos, transform.TransformDirection(detectionDirection));
@@ -46,6 +48,7 @@ public class Car : MonoBehaviour
             {
                 decelerate = false;
             }
+        }
         }
         
 
