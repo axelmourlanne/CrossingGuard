@@ -6,13 +6,12 @@ public class ControlStation : MonoBehaviour
 {
 
     public Drone[] drones;
-    //public List<Drone> dronesInMission = new List<Drone>();
     public int numberOfDronesNecessary;
     public List<GameObject[]> allSpots = new List<GameObject[]>();
     public int range = 100;
     public List<GameObject[]> currentlyUsedSpots = new List<GameObject[]>();
     
-    // Start is called before the first frame update
+
     void Start()
     {
 
@@ -58,7 +57,7 @@ public class ControlStation : MonoBehaviour
         int counterDronesAvailable = 0;
         foreach(Drone drone in this.drones)
         {
-            if(drone.autonomy >= Parameters.droneAutonomy / 2 && !drone.isActive)
+            if(drone.autonomy >= Parameters.droneRequiredAutonomy && !drone.isActive)
                 counterDronesAvailable++;
         }
         return counterDronesAvailable >= this.numberOfDronesNecessary;
@@ -70,39 +69,64 @@ public class ControlStation : MonoBehaviour
         List<Drone> dronesList = new List<Drone>();
         foreach(Drone chargedDrone in sortDronesAccordingToDistance(this.drones))
         {
-            if(!chargedDrone.isActive && chargedDrone.autonomy >= Parameters.droneAutonomy / 2)
+            if(!chargedDrone.isActive && chargedDrone.autonomy >= Parameters.droneRequiredAutonomy)
             {
                 dronesList.Add(chargedDrone);
             }
         }
-        print(dronesList.Count);
         return dronesList.Count == 0 ? null : dronesList[0];
     }
 
 
-    public void RequestForChargedDrone(Drone drone)
+
+    public void NewChiefIsChosen(Drone currentChief)
     {
-        drone.detection = false;
-        drone.endOfMission = true;
+        Drone worthiest = currentChief.dronesInMission[0];
+        foreach(Drone drone in currentChief.dronesInMission)
+        {
+            if(drone == currentChief)
+                continue;
+            if(drone.autonomy > worthiest.autonomy)
+                worthiest = drone;
+        }
+
+        worthiest.cpt = currentChief.cpt;
+
+        foreach(Drone drone in currentChief.dronesInMission)
+        {
+            if(drone == currentChief)
+                continue;
+            drone.chief = worthiest;
+        } 
+        currentChief.chief = worthiest;
+        worthiest.dronesInMission = currentChief.dronesInMission;
+        worthiest.missionSpots = currentChief.missionSpots;
+        worthiest.numberOfDetections = currentChief.numberOfDetections;
+        worthiest.pedestrianHasStartedTraversing = currentChief.pedestrianHasStartedTraversing;
+        currentChief.dronesInMission = new List<Drone>();
+    }
+
+
+    public void RequestForChargedDrone(Drone droneToBeCharged)
+    {
+        droneToBeCharged.detection = false;
+        droneToBeCharged.endOfMission = true;
         Drone chargedDrone = this.SelectAvailableDrone();
         
         if(chargedDrone != null)
         {
-            drone.chief.dronesInMission.Add(chargedDrone);
-            drone.chief.dronesInMission.Remove(drone);
             chargedDrone.isActive = true;
             chargedDrone.startFromStation = true;
-            chargedDrone.chief = drone.chief;
-            chargedDrone.spot = drone.spot;
-            chargedDrone.pedestrianHasStartedTraversing = drone.pedestrianHasStartedTraversing;
-            chargedDrone.dronesInMission = drone.dronesInMission;
-            chargedDrone.cpt = drone.cpt;
-            chargedDrone.missionSpots = drone.missionSpots;
+            chargedDrone.chief = droneToBeCharged.chief;
+            chargedDrone.spot = droneToBeCharged.spot;
+            chargedDrone.chief.dronesInMission.Add(chargedDrone);
+            chargedDrone.chief.dronesInMission.Remove(droneToBeCharged);
             chargedDrone.targetPosition = new Vector3(chargedDrone.spot.transform.position.x, chargedDrone.transform.position.y, chargedDrone.spot.transform.position.z);
-            chargedDrone.numberOfDetections = drone.numberOfDetections;
+            droneToBeCharged.pedestrianHasStartedTraversing = false;
+            droneToBeCharged.missionSpots = null;
         }
-        // else
-        //     print("None of the remaining drones has enough charge!");
+        else
+            print("None of the remaining drones has enough charge!");
     }
 
 
@@ -116,7 +140,7 @@ public class ControlStation : MonoBehaviour
             this.currentlyUsedSpots.Add(missionSpots);
             foreach(Drone drone in sortDronesAccordingToDistance(this.drones))
             {
-                if(drone.spot == null && drone.autonomy >= Parameters.droneAutonomy / 2)
+                if(drone.spot == null && drone.autonomy >= Parameters.droneRequiredAutonomy)
                 {
                     if(chief == null)
                     {
@@ -138,6 +162,8 @@ public class ControlStation : MonoBehaviour
                 drone.spot = missionSpots[i];
                 drone.targetPosition = new Vector3(drone.spot.transform.position.x, drone.transform.position.y, drone.spot.transform.position.z);
                 i++;
+                if(drone.gameObject.name == "Drone08")
+                    drone.autonomy = 35;
             }
         }
         else    

@@ -12,7 +12,8 @@ public static class Parameters
     public static float carNormalSpeed = 5f;
     
     public static float droneSpeed = 10f;
-    public static int droneAutonomy = 100; //in seconds 
-
+    public static int droneRequiredAutonomy = 60;
+    public static int droneMaximumAutonomy = 200;
+    
     public static int controlStationNumberOfDronesNecessary = 6;
 }

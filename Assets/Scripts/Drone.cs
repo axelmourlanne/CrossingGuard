@@ -28,7 +28,7 @@ public class Drone : MonoBehaviour
     public GameObject[] missionSpots;
     public int cpt = 0; //this counter is incremented for the chief as each drone arrives to its assigned spot
     public int autonomy;
-    public bool batteryLow;
+    public bool batteryIsTooLow;
 
 
     void PedestrianDetectionLaser()
@@ -39,19 +39,23 @@ public class Drone : MonoBehaviour
         else
             detectionDirection = Vector3.forward;
 
-        for(float i = -0.5f ; i <= 0.5f ; i=i+0.1f) 
+        for(float i = -0.25f ; i <= 0.25f ; i=i+0.1f) 
         {
+            for(float j = 0f ; j >= -0.25f ; j-=0.1f)
+            {
             detectionDirection.x = i;
+            detectionDirection.y = j;
             var ray = new Ray(this.transform.position, transform.TransformDirection(detectionDirection));
-            Vector3 drawDown = transform.TransformDirection(detectionDirection * 2.5f);
+            Vector3 drawDown = transform.TransformDirection(detectionDirection * 5f);
             Debug.DrawRay(this.transform.position, drawDown, Color.blue);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, 2.5f, 1 << 8)) 
+            if (Physics.Raycast(ray, out hit, 5f, 1 << 8)) 
             {
                 this.chief.pedestrianHasStartedTraversing = true;
                 this.chief.numberOfDetections++;
             }
+        }
         }
         
 
@@ -99,14 +103,14 @@ public class Drone : MonoBehaviour
         this.endOfMission = false;
         this.backToStation = false;
         this.speed = Parameters.droneSpeed;
-        this.autonomy = Parameters.droneAutonomy;
+        this.autonomy = Random.Range(Parameters.droneRequiredAutonomy, Parameters.droneMaximumAutonomy);
         this.headquarters = GameObject.Find("Headquarters").GetComponent<ControlStation>();
         this.pedestrianHasStartedTraversing = false;
         this.numberOfDetections = 0;
         this.blink = false;
         this.originalColor = this.transform.GetChild(2).GetComponent<Renderer>().material.color;
         this.initialPosition = this.transform.position;
-        this.batteryLow = false;
+        this.batteryIsTooLow = false;
     }
 
 
@@ -143,11 +147,19 @@ public class Drone : MonoBehaviour
                     this.autonomy--;
             }
 
-            if(autonomy == 0 && !this.batteryLow)
+            if(this.autonomy <= Parameters.droneRequiredAutonomy / 2 && this.chief == this)
             {
-                this.batteryLow = true;
+                this.headquarters.NewChiefIsChosen(this);
+            }
+
+            if(this.autonomy <= Parameters.droneRequiredAutonomy / 3 && !this.batteryIsTooLow)
+            {
+                this.batteryIsTooLow = true;
                 this.headquarters.RequestForChargedDrone(this);
             }
+
+            if(this.autonomy == 0)
+                this.isActive = false;
 
             if(this.startFromStation) //moves from station to over the spot
             {
@@ -210,7 +222,7 @@ public class Drone : MonoBehaviour
 
                     if(ShouldMissionEnd())
                     {
-                        foreach(Drone drone in this.dronesInMission)
+                        foreach(Drone drone in this.dronesInMission) //'this' is nessessarily the chief here since ShouldMissionEnd() returned true
                         {
                             drone.detection = false;
                             drone.descendToSpot = false; //in case a car is blocking a drone
@@ -276,9 +288,12 @@ public class Drone : MonoBehaviour
             if(this.timerAutonomy > 1f)
             {
                 this.timerAutonomy = 0f;
-                if(this.autonomy < 100)
+                if(this.autonomy < Parameters.droneMaximumAutonomy)
                     this.autonomy++;
             }
+
+            if(this.batteryIsTooLow && this.autonomy >= Parameters.droneRequiredAutonomy)
+                this.batteryIsTooLow = false;
 
         }
     }
