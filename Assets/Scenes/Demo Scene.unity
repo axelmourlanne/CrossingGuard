@@ -15960,12 +15960,11 @@ MonoBehaviour:
   timerBlink: 0
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   initialPosition: {x: 0, y: 0, z: 0}
-  timerDistance: 0
   timerAutonomy: 0
   missionSpots: []
   cpt: 0
   autonomy: 0
-  batteryLow: 0
+  batteryIsTooLow: 0
 --- !u!54 &459220602
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -18591,12 +18590,11 @@ MonoBehaviour:
   timerBlink: 0
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   initialPosition: {x: 0, y: 0, z: 0}
-  timerDistance: 0
   timerAutonomy: 0
   missionSpots: []
   cpt: 0
   autonomy: 0
-  batteryLow: 0
+  batteryIsTooLow: 0
 --- !u!54 &536791422
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -24029,12 +24027,11 @@ MonoBehaviour:
   timerBlink: 0
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   initialPosition: {x: 0, y: 0, z: 0}
-  timerDistance: 0
   timerAutonomy: 0
   missionSpots: []
   cpt: 0
   autonomy: 0
-  batteryLow: 0
+  batteryIsTooLow: 0
 --- !u!54 &682870290
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -28588,12 +28585,11 @@ MonoBehaviour:
   timerBlink: 0
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   initialPosition: {x: 0, y: 0, z: 0}
-  timerDistance: 0
   timerAutonomy: 0
   missionSpots: []
   cpt: 0
   autonomy: 0
-  batteryLow: 0
+  batteryIsTooLow: 0
 --- !u!54 &840700520
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -28729,12 +28725,11 @@ MonoBehaviour:
   timerBlink: 0
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   initialPosition: {x: 0, y: 0, z: 0}
-  timerDistance: 0
   timerAutonomy: 0
   missionSpots: []
   cpt: 0
   autonomy: 0
-  batteryLow: 0
+  batteryIsTooLow: 0
 --- !u!54 &844486107
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -33067,12 +33062,11 @@ MonoBehaviour:
   timerBlink: 0
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   initialPosition: {x: 0, y: 0, z: 0}
-  timerDistance: 0
   timerAutonomy: 0
   missionSpots: []
   cpt: 0
   autonomy: 0
-  batteryLow: 0
+  batteryIsTooLow: 0
 --- !u!54 &960858115
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -43628,12 +43622,11 @@ MonoBehaviour:
   timerBlink: 0
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   initialPosition: {x: 0, y: 0, z: 0}
-  timerDistance: 0
   timerAutonomy: 0
   missionSpots: []
   cpt: 0
   autonomy: 0
-  batteryLow: 0
+  batteryIsTooLow: 0
 --- !u!54 &1236894200
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -47343,7 +47336,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1329317280}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.041918796, y: 0.014048177, z: 0.021649472}
@@ -51711,12 +51704,11 @@ MonoBehaviour:
   timerBlink: 0
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   initialPosition: {x: 0, y: 0, z: 0}
-  timerDistance: 0
   timerAutonomy: 0
   missionSpots: []
   cpt: 0
   autonomy: 0
-  batteryLow: 0
+  batteryIsTooLow: 0
 --- !u!54 &1459915090
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -56986,12 +56978,11 @@ MonoBehaviour:
   timerBlink: 0
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   initialPosition: {x: 0, y: 0, z: 0}
-  timerDistance: 0
   timerAutonomy: 0
   missionSpots: []
   cpt: 0
   autonomy: 0
-  batteryLow: 0
+  batteryIsTooLow: 0
 --- !u!54 &1598703594
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -57188,7 +57179,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1601246200}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.041918796, y: 0.014048177, z: 0.021649472}
@@ -57683,7 +57674,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drones: []
   numberOfDronesNecessary: 0
-  range: 100
 --- !u!4 &1615815958
 Transform:
   m_ObjectHideFlags: 0
@@ -64521,12 +64511,11 @@ MonoBehaviour:
   timerBlink: 0
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   initialPosition: {x: 0, y: 0, z: 0}
-  timerDistance: 0
   timerAutonomy: 0
   missionSpots: []
   cpt: 0
   autonomy: 0
-  batteryLow: 0
+  batteryIsTooLow: 0
 --- !u!54 &1794165659
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -64647,12 +64636,11 @@ MonoBehaviour:
   timerBlink: 0
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   initialPosition: {x: 0, y: 0, z: 0}
-  timerDistance: 0
   timerAutonomy: 0
   missionSpots: []
   cpt: 0
   autonomy: 0
-  batteryLow: 0
+  batteryIsTooLow: 0
 --- !u!54 &1797059342
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -65160,6 +65148,10 @@ PrefabInstance:
     - target: {fileID: 427610, guid: 1d3b1a1513de66247974634911345b98, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9526514, guid: 1d3b1a1513de66247974634911345b98, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d3b1a1513de66247974634911345b98, type: 3}
@@ -68261,12 +68253,11 @@ MonoBehaviour:
   timerBlink: 0
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   initialPosition: {x: 0, y: 0, z: 0}
-  timerDistance: 0
   timerAutonomy: 0
   missionSpots: []
   cpt: 0
   autonomy: 0
-  batteryLow: 0
+  batteryIsTooLow: 0
 --- !u!54 &1891115814
 Rigidbody:
   m_ObjectHideFlags: 0

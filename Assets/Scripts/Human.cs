@@ -14,15 +14,20 @@ public class Human : MonoBehaviour
     public bool isKeyLeftPressed; //boolean that is set to true when the left arrow key is pressed (Input.GetKeyDown) and to false when the key isn't pressed anymore (Input.GetKeyUp)
 
 
-    void CameraMove(){
-        this.mainCamera.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 1.5f, this.transform.position.z);
+    /*
+    Method called at each iteration to synchronize the camera with the human.
+    */
+    void CameraMove()
+    {
+        this.mainCamera.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 2f, this.transform.position.z);
         mainCamera.transform.localRotation = Quaternion.Euler(0f, -1f * rotationY, 0f);
         this.transform.localRotation = this.mainCamera.transform.localRotation;
     }
 
-    // Start is called before the first frame update
+
     void Start()
     {
+        //this.GetComponent<MeshRenderer>().enabled = false;
         this.isKeyWPressed = false;
         this.isKeyLeftPressed = false;
         this.isKeyRightPressed = false;
@@ -31,26 +36,26 @@ public class Human : MonoBehaviour
         this.rotationY = Parameters.humanRotationY;
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         CameraMove();
 
-        if(Input.GetKeyDown(KeyCode.W)) //in first person view the 'W' key is used to make the player move forward
+        if(Input.GetKeyDown(KeyCode.W)) //the 'W' key is used to make the player move forward
             this.isKeyWPressed = true;
         if(this.isKeyWPressed)
-            this.transform.position += this.transform.forward * this.speed * 10 * Time.deltaTime;
+            this.transform.position += this.transform.forward * this.speed * Time.deltaTime;
         if(Input.GetKeyUp(KeyCode.W))
             this.isKeyWPressed = false;
 
-        if(Input.GetKeyDown(KeyCode.LeftArrow)) //to move left (from the camera's view it would be left)
+        if(Input.GetKeyDown(KeyCode.LeftArrow)) //to rotate the camero to the left
             this.isKeyLeftPressed = true;
         if(this.isKeyLeftPressed)
             this.rotationY += lookSpeed * Time.deltaTime;
         if(Input.GetKeyUp(KeyCode.LeftArrow))
             this.isKeyLeftPressed = false;
 
-        if(Input.GetKeyDown(KeyCode.RightArrow)) //to move right (from the camera's view it would be right)
+        if(Input.GetKeyDown(KeyCode.RightArrow)) //to rotate the camera to the right
             this.isKeyRightPressed = true;
         if(this.isKeyRightPressed)
             this.rotationY += -1f * lookSpeed * Time.deltaTime;

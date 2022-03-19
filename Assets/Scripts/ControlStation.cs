@@ -5,11 +5,10 @@ using UnityEngine;
 public class ControlStation : MonoBehaviour
 {
 
-    public Drone[] drones;
-    public int numberOfDronesNecessary;
-    public List<GameObject[]> allSpots = new List<GameObject[]>();
-    public int range = 100;
-    public List<GameObject[]> currentlyUsedSpots = new List<GameObject[]>();
+    public Drone[] drones; //the list than contains every crossing guards
+    public int numberOfDronesNecessary; //the number of drones required to succeed a mission
+    public List<GameObject[]> allSpots = new List<GameObject[]>(); //the list that contains every array of spots from every crosswalk
+    public List<GameObject[]> currentlyUsedSpots = new List<GameObject[]>(); //the list that contains array of spots from the current missions
     
 
     void Start()
@@ -17,15 +16,20 @@ public class ControlStation : MonoBehaviour
 
         this.numberOfDronesNecessary = Parameters.controlStationNumberOfDronesNecessary;
         GameObject[] passageSpots;
-        for(int i = 1 ; i <= GameObject.FindGameObjectsWithTag("crossing").Length ; i++)
+        for(int i = 1 ; i <= GameObject.FindGameObjectsWithTag("crossing").Length ; i++) //for every crosswalk in the map, we search the drone spots associated with it and add the arrays of spots in the allSpots attribute.
         {
             passageSpots = GameObject.FindGameObjectsWithTag("spot" + i.ToString());
             this.allSpots.Add(passageSpots);
         }
-        this.drones = FindObjectsOfType(typeof(Drone)) as Drone[];
+        this.drones = FindObjectsOfType(typeof(Drone)) as Drone[]; //every drone in the map is a crossing guard.
     }
 
 
+    /*
+    Method called each time a mission starts and when an active drone requests a substitution.
+    Returns a list of drones sorted by their distance to the human who pressed the button on the terminal.
+    Parameters: dronesList if the list of drones to be sorted.
+    */
     public Drone[] sortDronesAccordingToDistance(Drone[] dronesList)
     {
         GameObject thierry = GameObject.Find("Thierry");
@@ -52,6 +56,10 @@ public class ControlStation : MonoBehaviour
     }
 
 
+    /*
+    Method called each time a mission starts.
+    Returns true if among the available crossing guards the number of drones with enough autonomy is superior or equal to the requested number of drones for a mission. 
+    */
     public bool AutonomyCheck()
     {
         int counterDronesAvailable = 0;
@@ -64,21 +72,27 @@ public class ControlStation : MonoBehaviour
     }
 
 
+    /*
+    Method called each time a drone substitution is requested.
+    Returns the closest drone to the pedestrian who pressed the button on the terminal which has enough autonomy is complete the mission. 
+    */
     public Drone SelectAvailableDrone()
     {
-        List<Drone> dronesList = new List<Drone>();
         foreach(Drone chargedDrone in sortDronesAccordingToDistance(this.drones))
         {
             if(!chargedDrone.isActive && chargedDrone.autonomy >= Parameters.droneRequiredAutonomy)
             {
-                dronesList.Add(chargedDrone);
+                return chargedDrone;
             }
         }
-        return dronesList.Count == 0 ? null : dronesList[0];
+        return null;
     }
 
 
-
+    /*
+    Method called when a chief from a current mission is about to request a change of chief.
+    The headquarters choose among the drones in the mission the one that has the biggest autonomy and then make this new chief take responsability. 
+    */
     public void NewChiefIsChosen(Drone currentChief)
     {
         Drone worthiest = currentChief.dronesInMission[0];
@@ -107,6 +121,10 @@ public class ControlStation : MonoBehaviour
     }
 
 
+    /*
+    Method called each time a drone substitution is requested.
+    Prepares a inactive drone to replace a drone that has not enough autonomy to continue the mission. 
+    */
     public void RequestForChargedDrone(Drone droneToBeCharged)
     {
         droneToBeCharged.detection = false;
@@ -130,6 +148,10 @@ public class ControlStation : MonoBehaviour
     }
 
 
+    /*
+    Method called when one of the buttons from one of the terminals is pressed.
+    Chooses from the available crossing guards the ones closest to the pedestrian with enough autonomy to complete the mission and prepare each drone to start.
+    */
     public void StartMission(int buttonTag)
     {
         GameObject[] missionSpots = this.allSpots[buttonTag - 1];
@@ -160,19 +182,12 @@ public class ControlStation : MonoBehaviour
             foreach(Drone drone in chief.dronesInMission)
             {
                 drone.spot = missionSpots[i];
-                drone.targetPosition = new Vector3(drone.spot.transform.position.x, drone.transform.position.y, drone.spot.transform.position.z);
+                drone.MissionPlanning();
                 i++;
-                if(drone.gameObject.name == "Drone08")
-                    drone.autonomy = 35;
             }
         }
-        else    
+        else //either there aren't enough drones with the required autonomy or there is already a guards team assigned to this crosswalk.
             print("It is currently impossible to call drones here. Please wait.");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

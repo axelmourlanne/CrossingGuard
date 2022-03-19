@@ -11,6 +11,7 @@ public class Car : MonoBehaviour
     private bool decelerate = false;
     public float timerBackUp;
 
+
     void Start()
     {
         this.speed = Parameters.carSpeed;
