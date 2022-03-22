@@ -20,4 +20,5 @@ public static class Parameters
     
     //For script ControlStation.cs
     public static int controlStationNumberOfDronesNecessary = 6;
+    public static int maximumCommunicationDistance = 50; //in meters
 }
