@@ -4,13 +4,13 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - spot1
   - 1
   - 2
-  - spot2
-  - crossing
-  - spot3
   - 3
+  - crossingSystem1
+  - crossingSystem2
+  - crossingSystem3
+  - crosswalk
   layers:
   - Default
   - TransparentFX

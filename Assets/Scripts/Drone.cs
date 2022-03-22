@@ -125,7 +125,7 @@ public class Drone : MonoBehaviour
                 detectionDirection.y = j;
                 var ray = new Ray(this.transform.position, transform.TransformDirection(detectionDirection));
                 Vector3 drawDown = transform.TransformDirection(detectionDirection * 5f);
-                Debug.DrawRay(this.transform.position, drawDown, Color.blue);
+                //Debug.DrawRay(this.transform.position, drawDown, Color.blue);
                 RaycastHit hit;
 
                 if (Physics.Raycast(ray, out hit, 5f, 1 << 8)) 

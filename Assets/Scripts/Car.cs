@@ -37,7 +37,7 @@ public class Car : MonoBehaviour
             var ray = new Ray(current_pos, transform.TransformDirection(detectionDirection));
 
             Vector3 drawDown = transform.TransformDirection(detectionDirection * 10f);
-            Debug.DrawRay(current_pos, drawDown, Color.red);
+            //Debug.DrawRay(current_pos, drawDown, Color.red);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, 10f))

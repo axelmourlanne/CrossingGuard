@@ -14,7 +14,7 @@ public static class Parameters
     public static int droneRequiredAutonomy = 120; //in seconds
     public static int droneMaximumAutonomy = 300; //in seconds
     public static float droneBlinkFrequency = 0.75f; //in seconds
-    public static float droneMissionTimeout = 5f; //in seconds
+    public static float droneMissionTimeout = 4f; //in seconds
     public static float minimumDistanceBetweenDrones = 1; //in meters
 
     
