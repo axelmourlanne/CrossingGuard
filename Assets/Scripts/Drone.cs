@@ -76,7 +76,7 @@ public class Drone : MonoBehaviour
     {
         if(this == this.chief)
         {
-            if((this.numberOfDetections == 0 && this.pedestrianHasStartedTraversing) || this.timerMissionEnd > 5f)
+            if((this.numberOfDetections == 0 && this.pedestrianHasStartedTraversing) || this.timerMissionEnd > Parameters.droneMissionTimeout)
                 return true;
         }
         return false;
@@ -247,6 +247,8 @@ public class Drone : MonoBehaviour
 
                     if(!this.chief.pedestrianHasStartedTraversing) //if all the drones are there and a pedestrian still hasn't yet been detected, a timer is incremented. 
                         this.timerMissionEnd += Time.deltaTime;
+                    else
+                        this.timerMissionEnd = 0f;
 
                     if(ShouldMissionEnd())
                     {
@@ -266,7 +268,7 @@ public class Drone : MonoBehaviour
             else if(this.endOfMission) //the pedestrian has finished crossing or the mission has timed out, so the drone elevate again
             {
 
-                if(this.timerMissionEnd < 3f)
+                if(this.timerMissionEnd < Parameters.droneMissionTimeout)
                 {
                     this.timerMissionEnd += Time.deltaTime;
                     this.transform.GetChild(2).GetComponent<Renderer>().material.color = this.batteryIsTooLow ? Color.black : Color.green; //the drone emits green light if the mission ends without issue and is black if it has to quit the mission because of its battery
@@ -294,6 +296,7 @@ public class Drone : MonoBehaviour
                 if(dist[0] <= 0.1f && dist[2] <= 0.1f)
                 {
                     this.backToStation = false;
+                    this.batteryIsTooLow = false;
                     this.isActive = false;
                     if(this == this.chief)
                     {
@@ -315,12 +318,9 @@ public class Drone : MonoBehaviour
             if(this.timerAutonomy > 1f) //update of the autonomy attribute with the drone not active
             {
                 this.timerAutonomy = 0f;
-                if(this.autonomy < Parameters.droneMaximumAutonomy)
+                if(this.autonomy < Parameters.droneMaximumAutonomy && !this.batteryIsTooLow)
                     this.autonomy += 2; //as long as the drone's autonomy has a value bellow the maximal capacity, it is increased by 2 every second.
             }
-
-            if(this.batteryIsTooLow && this.autonomy >= Parameters.droneRequiredAutonomy) //if the drone recover enough autonomy to participate in another mission, its loses its status batteryIsTooLow.
-                this.batteryIsTooLow = false;
 
         }
     }
