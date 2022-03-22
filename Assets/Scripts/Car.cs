@@ -36,11 +36,11 @@ public class Car : MonoBehaviour
 
             var ray = new Ray(current_pos, transform.TransformDirection(detectionDirection));
 
-            Vector3 drawDown = transform.TransformDirection(detectionDirection * 10f);
+            Vector3 drawDown = transform.TransformDirection(detectionDirection * Parameters.carLaserRange);
             //Debug.DrawRay(current_pos, drawDown, Color.red);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, 10f))
+            if (Physics.Raycast(ray, out hit, Parameters.carLaserRange))
             {
                 decelerate = true;
                 return;
