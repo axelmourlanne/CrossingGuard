@@ -28,8 +28,7 @@ public class Drone : MonoBehaviour
     public int cpt = 0; //this counter is incremented for the chief as each drone arrives to its assigned spot
     public int autonomy; //the number of seconds a drone can be active. It's increased when the drone is charging at the station
     public bool batteryIsTooLow; //when this boolean is true, a drone cannot continue its mission anymore and has to request a substition from the headquarters
-    public float timerTest;
-    public float[] totalDistance;
+
 
     void Start()
     {
@@ -48,8 +47,6 @@ public class Drone : MonoBehaviour
         this.originalColor = this.transform.GetChild(2).GetComponent<Renderer>().material.color;
         this.initialPosition = this.transform.position;
         this.batteryIsTooLow = false;
-        this.timerTest = 0f;
-        
     }
 
     /*
@@ -93,7 +90,7 @@ public class Drone : MonoBehaviour
                 if y = 1, the distance from the targetted position on the y axis will be calculated.
                 if z = 1, the distance from the targetted position on the z axis will be calculated.
     */
-    public float[] GetDistanceFromTarget(int x, int y, int z)
+    float[] GetDistanceFromTarget(int x, int y, int z)
     {
         float[] returnTab = {0f,0f,0f};
         if(x == 1)
@@ -197,13 +194,11 @@ public class Drone : MonoBehaviour
             if(this.startFromStation) //moves from the station to over the spot
             {
                 float[] dist = GetDistanceFromTarget(1,0,1); //dist array has information on the x and z axis
-                this.timerTest += Time.deltaTime;
+                
                 Move();
 
                 if(dist[0] <= 0.1f && dist[2] <= 0.1f) 
                 {
-                    float distance = Mathf.Sqrt(this.totalDistance[0] * this.totalDistance[0] + this.totalDistance[2] * this.totalDistance[2]); 
-                    print(this.gameObject.name + " has traveled " + distance.ToString() + " in " + this.timerTest + " seconds.\n");
                     this.startFromStation = false;
                     this.descendToSpot = true;
                     this.targetPosition = new Vector3(this.transform.position.x, this.spot.transform.position.y, this.transform.position.z);

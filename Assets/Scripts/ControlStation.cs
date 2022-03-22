@@ -175,7 +175,7 @@ public class ControlStation : MonoBehaviour
                     drone.isActive = true;
                     drone.startFromStation = true;
                     drone.chief = chief;
-                    drone.totalDistance = drone.GetDistanceFromTarget(1,0,1);
+
                     if(chief.dronesInMission.Count == this.numberOfDronesNecessary)
                         break;
                 }
