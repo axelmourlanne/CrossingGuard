@@ -70,7 +70,7 @@ public class MissionTests
 
         button.OnMouseDown();
 
-        int nbDronesWanted = Mathf.Min(headquarters.drones.Length, nbDronesInMission + 6);
+        int nbDronesWanted = Mathf.Min(headquarters.drones.Length, nbDronesInMission + Parameters.controlStationNumberOfDronesNecessary);
 
         foreach (var drone in headquarters.drones)
             if (drone.isActive)
