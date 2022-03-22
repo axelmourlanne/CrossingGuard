@@ -35,13 +35,16 @@ public class MissionTests
         Transform[] objects = Resources.FindObjectsOfTypeAll<Transform>();
         foreach (Transform t in objects)
             if (t.name == "Headquarters")
+            {
                 headquarters = t.GetComponent<ControlStation>();
+                break;
+            }
         
         referencesSetup = true;
     }
     
     [UnityTest]
-    public IEnumerator TestReferencesNotNullAfterLoad()
+    public IEnumerator ReferencesNotNullAfterLoad()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
         SetupReferences();
@@ -83,6 +86,7 @@ public class MissionTests
     public IEnumerator DroneWellPositionedAtEachStep() {
 
         yield return new WaitWhile(() => dronesInMission.Count == 0);
+        SetupReferences();
 
         int index = Random.Range(0, dronesInMission.Count);
         Drone drone = dronesInMission[index];
@@ -90,22 +94,22 @@ public class MissionTests
         yield return new WaitWhile(() => drone.startFromStation == true);
 
         Assert.Greater(drone.gameObject.transform.position.y, drone.spot.gameObject.transform.position.y + 5);
-        Assert.AreEqual(drone.gameObject.transform.position.x, drone.spot.transform.position.x);
-        Assert.AreEqual(drone.gameObject.transform.position.z, drone.spot.transform.position.z);
+        Assert.AreEqual(drone.gameObject.transform.position.x, drone.spot.transform.position.x, 0.1f);
+        Assert.AreEqual(drone.gameObject.transform.position.z, drone.spot.transform.position.z, 0.1f);
 
         yield return new WaitWhile(() => drone.descendToSpot == true);
 
-        Assert.AreEqual(drone.gameObject.transform.position.x, drone.spot.transform.position.x);
-        Assert.AreEqual(drone.gameObject.transform.position.y, drone.spot.transform.position.y);
-        Assert.AreEqual(drone.gameObject.transform.position.z, drone.spot.transform.position.z);
+        Assert.AreEqual(drone.gameObject.transform.position.x, drone.spot.transform.position.x, 0.1f);
+        Assert.AreEqual(drone.gameObject.transform.position.y, drone.spot.transform.position.y, 0.1f);
+        Assert.AreEqual(drone.gameObject.transform.position.z, drone.spot.transform.position.z, 0.1f);
 
         yield return new WaitWhile(() => drone.detection == true);
         yield return new WaitForSeconds(0.1f);
         yield return new WaitWhile(() => drone.endOfMission == true);
 
         Assert.Greater(drone.gameObject.transform.position.y, drone.spot.gameObject.transform.position.y + 5);
-        Assert.AreEqual(drone.gameObject.transform.position.x, drone.spot.transform.position.x);
-        Assert.AreEqual(drone.gameObject.transform.position.z, drone.spot.transform.position.z);
+        Assert.AreEqual(drone.gameObject.transform.position.x, drone.spot.transform.position.x, 0.1f);
+        Assert.AreEqual(drone.gameObject.transform.position.z, drone.spot.transform.position.z, 0.1f);
 
         yield return new WaitWhile(() => drone.backToStation == true);
 

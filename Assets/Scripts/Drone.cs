@@ -62,7 +62,7 @@ public class Drone : MonoBehaviour
     /*
     Method called each time the drone has to get to its current targetted position.
     */
-    void Move()
+    public void Move()
     {
         this.transform.position = Vector3.MoveTowards(this.transform.position, this.targetPosition, this.speed * Time.deltaTime);
     }

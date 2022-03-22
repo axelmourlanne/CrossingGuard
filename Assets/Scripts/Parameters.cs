@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public static class Parameters
 {
     //For script Human.cs
@@ -19,6 +15,8 @@ public static class Parameters
     public static int droneMaximumAutonomy = 300; //in seconds
     public static float droneBlinkFrequency = 0.75f; //in seconds
     public static float droneMissionTimeout = 5f; //in seconds
+    public static float minimumDistanceBetweenDrones = 1; //in meters
+
     
     //For script ControlStation.cs
     public static int controlStationNumberOfDronesNecessary = 6;
