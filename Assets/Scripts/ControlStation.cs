@@ -16,9 +16,9 @@ public class ControlStation : MonoBehaviour
 
         this.numberOfDronesNecessary = Parameters.controlStationNumberOfDronesNecessary;
         GameObject[] passageSpots;
-        for(int i = 1 ; i <= GameObject.FindGameObjectsWithTag("crossing").Length ; i++) //for every crosswalk in the map, we search the drone spots associated with it and add the arrays of spots in the allSpots attribute.
+        for(int i = 1 ; i <= GameObject.FindGameObjectsWithTag("crosswalk").Length ; i++) //for every crosswalk in the map, we search the drone spots associated with it and add the arrays of spots in the allSpots attribute.
         {
-            passageSpots = GameObject.FindGameObjectsWithTag("spot" + i.ToString());
+            passageSpots = GameObject.FindGameObjectsWithTag("crossingSystem" + i.ToString());
             this.allSpots.Add(passageSpots);
         }
         this.drones = FindObjectsOfType(typeof(Drone)) as Drone[]; //every drone in the map is a crossing guard.
@@ -30,29 +30,31 @@ public class ControlStation : MonoBehaviour
     Returns a list of drones sorted by their distance to the human who pressed the button on the terminal.
     Parameters: dronesList if the list of drones to be sorted.
     */
-    public Drone[] sortDronesAccordingToDistance(Drone[] dronesList)
+    public Drone[] sortDronesAccordingToDistance(Drone[] dronesArray)
     {
         GameObject thierry = GameObject.Find("Thierry");
-        for(int i = 0 ; i < dronesList.Length ; i++)
+        Drone[] copyDronesArray = new Drone[dronesArray.Length];
+        dronesArray.CopyTo(copyDronesArray, 0);
+        for(int i = 0 ; i < copyDronesArray.Length ; i++)
         {
-            for(int j = i+1 ; j < dronesList.Length ; j++)
+            for(int j = i+1 ; j < copyDronesArray.Length ; j++)
             {
-                float dXi = Mathf.Abs(thierry.transform.position.x - dronesList[i].transform.position.x);
-                float dYi = Mathf.Abs(thierry.transform.position.y - dronesList[i].transform.position.y);
-                float dZi = Mathf.Abs(thierry.transform.position.z - dronesList[i].transform.position.z);
-                float dXj = Mathf.Abs(thierry.transform.position.x - dronesList[j].transform.position.x);
-                float dYj = Mathf.Abs(thierry.transform.position.y - dronesList[j].transform.position.y);
-                float dZj = Mathf.Abs(thierry.transform.position.z - dronesList[j].transform.position.z);
+                float dXi = Mathf.Abs(thierry.transform.position.x - copyDronesArray[i].transform.position.x);
+                float dYi = Mathf.Abs(thierry.transform.position.y - copyDronesArray[i].transform.position.y);
+                float dZi = Mathf.Abs(thierry.transform.position.z - copyDronesArray[i].transform.position.z);
+                float dXj = Mathf.Abs(thierry.transform.position.x - copyDronesArray[j].transform.position.x);
+                float dYj = Mathf.Abs(thierry.transform.position.y - copyDronesArray[j].transform.position.y);
+                float dZj = Mathf.Abs(thierry.transform.position.z - copyDronesArray[j].transform.position.z);
                 if(Mathf.Sqrt(Mathf.Pow(2, dXi) + Mathf.Pow(2, dYi) + Mathf.Pow(2, dZi)) > Mathf.Sqrt(Mathf.Pow(2, dXj) + Mathf.Pow(2, dYj) + Mathf.Pow(2, dZj)))
                 {
-                    Drone tmp = dronesList[i];
-                    dronesList[i] = dronesList[j];
-                    dronesList[j] = tmp;
+                    Drone tmp = copyDronesArray[i];
+                    copyDronesArray[i] = copyDronesArray[j];
+                    copyDronesArray[j] = tmp;
                 }
             }
         }
 
-        return dronesList;
+        return copyDronesArray;
     }
 
 
@@ -95,16 +97,23 @@ public class ControlStation : MonoBehaviour
     */
     public void NewChiefIsChosen(Drone currentChief)
     {
-        Drone worthiest = currentChief.dronesInMission[0];
+        Drone worthiest = null;
+        for(int i = 0 ; i < currentChief.dronesInMission.Count ; i++)
+        {
+            worthiest = currentChief.dronesInMission[i];
+            if(worthiest != currentChief && !worthiest.waitingForCar) //the new chief has to be different from the current one
+                break;
+        }
+
         foreach(Drone drone in currentChief.dronesInMission)
         {
             if(drone == currentChief)
                 continue;
-            if(drone.autonomy > worthiest.autonomy)
+            if(drone.autonomy > worthiest.autonomy && !drone.waitingForCar)
                 worthiest = drone;
         }
 
-        worthiest.cpt = currentChief.cpt;
+        worthiest.numberOfDronesReady = currentChief.numberOfDronesReady;
 
         foreach(Drone drone in currentChief.dronesInMission)
         {
@@ -118,6 +127,7 @@ public class ControlStation : MonoBehaviour
         worthiest.numberOfDetections = currentChief.numberOfDetections;
         worthiest.pedestrianHasStartedTraversing = currentChief.pedestrianHasStartedTraversing;
         currentChief.dronesInMission = new List<Drone>();
+        currentChief.numberOfDronesReady = 0;
     }
 
 
