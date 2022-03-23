@@ -106,7 +106,7 @@ public class ControlStation : MonoBehaviour
                 worthiest = drone;
         }
 
-        worthiest.cpt = currentChief.cpt;
+        worthiest.numberOfDronesReady = currentChief.numberOfDronesReady;
 
         foreach(Drone drone in currentChief.dronesInMission)
         {
@@ -120,6 +120,7 @@ public class ControlStation : MonoBehaviour
         worthiest.numberOfDetections = currentChief.numberOfDetections;
         worthiest.pedestrianHasStartedTraversing = currentChief.pedestrianHasStartedTraversing;
         currentChief.dronesInMission = new List<Drone>();
+        currentChief.numberOfDronesReady = 0;
     }
 
 

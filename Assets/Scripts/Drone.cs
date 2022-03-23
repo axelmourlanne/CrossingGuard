@@ -25,10 +25,11 @@ public class Drone : MonoBehaviour
     public Vector3 initialPosition; //the spatial position of the drone's position before the mission started
     public float timerAutonomy = 0f; //every second, the drone's autonomy is updated
     public GameObject[] missionSpots; //the list of all the spots from the drone's mission
-    public int cpt = 0; //this counter is incremented for the chief as each drone arrives to its assigned spot
+    public int numberOfDronesReady = 0; //this counter is incremented for the chief as each drone arrives to its assigned spot
     public int autonomy; //the number of seconds a drone can be active. It's increased when the drone is charging at the station
     public bool batteryIsTooLow; //when this boolean is true, a drone cannot continue its mission anymore and has to request a substition from the headquarters
-
+    public bool substitutionInProgress;
+    public bool waitingForCar;
 
     void Start()
     {
@@ -47,6 +48,8 @@ public class Drone : MonoBehaviour
         this.originalColor = this.transform.GetChild(2).GetComponent<Renderer>().material.color;
         this.initialPosition = this.transform.position;
         this.batteryIsTooLow = false;
+        this.substitutionInProgress = false;
+        this.waitingForCar = false;
     }
 
     /*
@@ -150,13 +153,18 @@ public class Drone : MonoBehaviour
     {
         var ray = new Ray(transform.position, transform.TransformDirection(Vector3.down));
         RaycastHit hit;
-        int layerMask = 1 << 10;
+        int layerMask = 1 << 10; //10 is the layer of cars
         if (Physics.Raycast(ray, out hit, Parameters.droneLaserRange, layerMask))
         {
-            this.chief.cpt++;
+            if(!this.waitingForCar)
+            {
+                this.chief.numberOfDronesReady++;
+                this.waitingForCar = true;
+                if(this == this.chief)
+                    this.headquarters.NewChiefIsChosen(this);    
+            }
+            
             hit.transform.gameObject.GetComponent<Car>().timerBackUp += Time.deltaTime;
-            if(this == this.chief)
-                this.headquarters.NewChiefIsChosen(this);
         }    
         else
             Move();
@@ -177,14 +185,15 @@ public class Drone : MonoBehaviour
                     this.autonomy--; //as long as the drone's autonomy has a positive value, it is decreased by 1 every second.
             }
 
-            if(this.chief == this && this.autonomy <= Parameters.droneRequiredAutonomy / 4) //the chief no longer can take responsability for the mission and thus the headquarters will chose another drone with more autonomy.
+            if(this.chief == this && this.autonomy <= Parameters.droneRequiredAutonomy / 2) //the chief should longer take responsability for the mission and thus the headquarters will chose another drone with more autonomy.
             {
                 this.headquarters.NewChiefIsChosen(this);
             }
 
-            if(this.autonomy <= Parameters.droneRequiredAutonomy / 6 && !this.batteryIsTooLow) //the drone doesn't have much battery left and thus requests a substitution from the headquarters
+            if(this.autonomy <= Parameters.droneRequiredAutonomy / 3 && !this.batteryIsTooLow && !this.chief.substitutionInProgress) //the drone doesn't have much battery left and thus requests a substitution from the headquarters
             {
                 this.batteryIsTooLow = true;
+                this.chief.substitutionInProgress = true; //other drones from the same mission should not request a substitution at the same time.
                 this.headquarters.RequestForChargedDrone(this);
             }
 
@@ -210,7 +219,7 @@ public class Drone : MonoBehaviour
                 if(GetDistanceFromTarget(0,1,0)[1] <= 0.1f)
                 {
                     this.descendToSpot = false;
-                    this.chief.cpt++; //each drone which arrives at their spot increments this chief's attribute in order to start the detection at the same time.
+                    this.chief.numberOfDronesReady++; //each drone which arrives at their spot increments this chief's attribute in order to start the detection at the same time.
                     this.detection = true;
                     this.targetPosition = new Vector3(this.transform.position.x, this.initialPosition.y, this.transform.position.z);
                 }
@@ -235,7 +244,7 @@ public class Drone : MonoBehaviour
                         this.transform.GetChild(2).GetComponent<Renderer>().material.color = Color.blue;
                 }
 
-                if(this.chief.cpt >= 6) //every drone has suposedly arrived and starts blinking + detecting pedestrians
+                if(this.chief.numberOfDronesReady >= 6) //every drone has suposedly arrived and starts blinking + detecting pedestrians
                 {
                     if(this.timerBlink <= Parameters.droneBlinkFrequency)
                         this.timerBlink += Time.deltaTime;
@@ -270,7 +279,7 @@ public class Drone : MonoBehaviour
             else if(this.endOfMission) //the pedestrian has finished crossing or the mission has timed out, so the drone elevate again
             {
 
-                if(this.timerMissionEnd < Parameters.droneMissionTimeout)
+                if(this.timerMissionEnd < (this.batteryIsTooLow ? Parameters.droneMissionTimeout / 2 : Parameters.droneMissionTimeout))
                 {
                     this.timerMissionEnd += Time.deltaTime;
                     this.transform.GetChild(2).GetComponent<Renderer>().material.color = this.batteryIsTooLow ? Color.black : Color.green; //the drone emits green light if the mission ends without issue and is black if it has to quit the mission because of its battery
@@ -299,12 +308,13 @@ public class Drone : MonoBehaviour
                 {
                     this.backToStation = false;
                     this.batteryIsTooLow = false;
+                    this.chief.substitutionInProgress = false;
                     this.isActive = false;
                     if(this == this.chief)
                     {
                         this.pedestrianHasStartedTraversing = false;
                         this.dronesInMission = new List<Drone>();
-                        this.cpt = 0;
+                        this.numberOfDronesReady = 0;
                     }
                     this.chief = null;
                     this.spot = null;
