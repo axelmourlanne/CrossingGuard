@@ -97,12 +97,19 @@ public class ControlStation : MonoBehaviour
     */
     public void NewChiefIsChosen(Drone currentChief)
     {
-        Drone worthiest = currentChief.dronesInMission[0];
+        Drone worthiest = null;
+        for(int i = 0 ; i < currentChief.dronesInMission.Count ; i++)
+        {
+            worthiest = currentChief.dronesInMission[i];
+            if(worthiest != currentChief && !worthiest.waitingForCar) //the new chief has to be different from the current one
+                break;
+        }
+
         foreach(Drone drone in currentChief.dronesInMission)
         {
             if(drone == currentChief)
                 continue;
-            if(drone.autonomy > worthiest.autonomy)
+            if(drone.autonomy > worthiest.autonomy && !drone.waitingForCar)
                 worthiest = drone;
         }
 

@@ -84,7 +84,7 @@ public class Car : MonoBehaviour
             {
                 if(this.speed == 0f)
                 {
-                    this.transform.position += -1f * this.transform.right * this.normalSpeed * Time.deltaTime;
+                    //this.transform.position += -1f * this.transform.right * this.normalSpeed * Time.deltaTime;
                     this.timerBackUp += Time.deltaTime;
                 }
                 if(this.timerBackUp > 2f)
@@ -99,7 +99,7 @@ public class Car : MonoBehaviour
         
         if(this.decelerate && this.timerBackUp > 0f) //it's blocking a drone
         {    
-            this.transform.position += -1f * this.transform.right * this.speed * Time.deltaTime;
+            //this.transform.position += -1f * this.transform.right * this.speed * Time.deltaTime;
             this.timerBackUp += Time.deltaTime;
         }
         else

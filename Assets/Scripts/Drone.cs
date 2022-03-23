@@ -167,7 +167,10 @@ public class Drone : MonoBehaviour
             hit.transform.gameObject.GetComponent<Car>().timerBackUp += Time.deltaTime;
         }    
         else
+        {
+            this.waitingForCar = false;
             Move();
+        }
     }
 
 
@@ -220,7 +223,8 @@ public class Drone : MonoBehaviour
                 {
                     this.descendToSpot = false;
                     this.chief.numberOfDronesReady++; //each drone which arrives at their spot increments this chief's attribute in order to start the detection at the same time.
-                    this.detection = true;
+                    if(!this.chief.endOfMission && !this.chief.backToStation && this.chief.isActive)
+                        this.detection = true;
                     this.targetPosition = new Vector3(this.transform.position.x, this.initialPosition.y, this.transform.position.z);
                 }
 
@@ -266,7 +270,13 @@ public class Drone : MonoBehaviour
                         foreach(Drone drone in this.dronesInMission) //'this' is nessessarily the chief here since ShouldMissionEnd() returned true
                         {
                             drone.detection = false;
-                            drone.descendToSpot = false; //in case a car is blocking a drone
+                            if(drone.startFromStation || drone.descendToSpot) //case of a car blocking the drone for the entirety of the mission or even more rare case of a substitution starting right before the end of the mission
+                            {
+                                drone.targetPosition = drone.initialPosition;
+                                drone.startFromStation = false;
+                                drone.descendToSpot = false;
+                            }
+
                             drone.endOfMission = true;
                         }
                         this.headquarters.currentlyUsedSpots.Remove(this.missionSpots); //this way another pedestrian can call upon another team of drones at the same crosswalk right away
@@ -279,7 +289,7 @@ public class Drone : MonoBehaviour
             else if(this.endOfMission) //the pedestrian has finished crossing or the mission has timed out, so the drone elevate again
             {
 
-                if(this.timerMissionEnd < (this.batteryIsTooLow ? Parameters.droneMissionTimeout / 2 : Parameters.droneMissionTimeout))
+                if(this.timerMissionEnd < (this.batteryIsTooLow ? Parameters.droneMissionTimeout / 2 : Parameters.droneMissionTimeout)) //we don't want a drone with low battery to wait too much
                 {
                     this.timerMissionEnd += Time.deltaTime;
                     this.transform.GetChild(2).GetComponent<Renderer>().material.color = this.batteryIsTooLow ? Color.black : Color.green; //the drone emits green light if the mission ends without issue and is black if it has to quit the mission because of its battery
