@@ -15936,9 +15936,11 @@ MonoBehaviour:
   initialPosition: {x: 0, y: 0, z: 0}
   timerAutonomy: 0
   missionSpots: []
-  cpt: 0
+  numberOfDronesReady: 0
   autonomy: 0
   batteryIsTooLow: 0
+  substitutionInProgress: 0
+  waitingForCar: 0
 --- !u!54 &459220602
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -18536,9 +18538,11 @@ MonoBehaviour:
   initialPosition: {x: 0, y: 0, z: 0}
   timerAutonomy: 0
   missionSpots: []
-  cpt: 0
+  numberOfDronesReady: 0
   autonomy: 0
   batteryIsTooLow: 0
+  substitutionInProgress: 0
+  waitingForCar: 0
 --- !u!54 &536791422
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -23943,9 +23947,11 @@ MonoBehaviour:
   initialPosition: {x: 0, y: 0, z: 0}
   timerAutonomy: 0
   missionSpots: []
-  cpt: 0
+  numberOfDronesReady: 0
   autonomy: 0
   batteryIsTooLow: 0
+  substitutionInProgress: 0
+  waitingForCar: 0
 --- !u!54 &682870290
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -28501,9 +28507,11 @@ MonoBehaviour:
   initialPosition: {x: 0, y: 0, z: 0}
   timerAutonomy: 0
   missionSpots: []
-  cpt: 0
+  numberOfDronesReady: 0
   autonomy: 0
   batteryIsTooLow: 0
+  substitutionInProgress: 0
+  waitingForCar: 0
 --- !u!54 &840700520
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -28641,9 +28649,11 @@ MonoBehaviour:
   initialPosition: {x: 0, y: 0, z: 0}
   timerAutonomy: 0
   missionSpots: []
-  cpt: 0
+  numberOfDronesReady: 0
   autonomy: 0
   batteryIsTooLow: 0
+  substitutionInProgress: 0
+  waitingForCar: 0
 --- !u!54 &844486107
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -32978,9 +32988,11 @@ MonoBehaviour:
   initialPosition: {x: 0, y: 0, z: 0}
   timerAutonomy: 0
   missionSpots: []
-  cpt: 0
+  numberOfDronesReady: 0
   autonomy: 0
   batteryIsTooLow: 0
+  substitutionInProgress: 0
+  waitingForCar: 0
 --- !u!54 &960858115
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -43508,9 +43520,11 @@ MonoBehaviour:
   initialPosition: {x: 0, y: 0, z: 0}
   timerAutonomy: 0
   missionSpots: []
-  cpt: 0
+  numberOfDronesReady: 0
   autonomy: 0
   batteryIsTooLow: 0
+  substitutionInProgress: 0
+  waitingForCar: 0
 --- !u!54 &1236894200
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -51590,9 +51604,11 @@ MonoBehaviour:
   initialPosition: {x: 0, y: 0, z: 0}
   timerAutonomy: 0
   missionSpots: []
-  cpt: 0
+  numberOfDronesReady: 0
   autonomy: 0
   batteryIsTooLow: 0
+  substitutionInProgress: 0
+  waitingForCar: 0
 --- !u!54 &1459915090
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -56864,9 +56880,11 @@ MonoBehaviour:
   initialPosition: {x: 0, y: 0, z: 0}
   timerAutonomy: 0
   missionSpots: []
-  cpt: 0
+  numberOfDronesReady: 0
   autonomy: 0
   batteryIsTooLow: 0
+  substitutionInProgress: 0
+  waitingForCar: 0
 --- !u!54 &1598703594
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -64367,9 +64385,11 @@ MonoBehaviour:
   initialPosition: {x: 0, y: 0, z: 0}
   timerAutonomy: 0
   missionSpots: []
-  cpt: 0
+  numberOfDronesReady: 0
   autonomy: 0
   batteryIsTooLow: 0
+  substitutionInProgress: 0
+  waitingForCar: 0
 --- !u!54 &1794165659
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -64492,9 +64512,11 @@ MonoBehaviour:
   initialPosition: {x: 0, y: 0, z: 0}
   timerAutonomy: 0
   missionSpots: []
-  cpt: 0
+  numberOfDronesReady: 0
   autonomy: 0
   batteryIsTooLow: 0
+  substitutionInProgress: 0
+  waitingForCar: 0
 --- !u!54 &1797059342
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -64965,7 +64987,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 427610, guid: 1d3b1a1513de66247974634911345b98, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -318.76
+      value: -326.63
       objectReference: {fileID: 0}
     - target: {fileID: 427610, guid: 1d3b1a1513de66247974634911345b98, type: 3}
       propertyPath: m_LocalPosition.y
@@ -64973,7 +64995,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 427610, guid: 1d3b1a1513de66247974634911345b98, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -11.48
+      value: -16.14
       objectReference: {fileID: 0}
     - target: {fileID: 427610, guid: 1d3b1a1513de66247974634911345b98, type: 3}
       propertyPath: m_LocalRotation.w
@@ -68109,9 +68131,11 @@ MonoBehaviour:
   initialPosition: {x: 0, y: 0, z: 0}
   timerAutonomy: 0
   missionSpots: []
-  cpt: 0
+  numberOfDronesReady: 0
   autonomy: 0
   batteryIsTooLow: 0
+  substitutionInProgress: 0
+  waitingForCar: 0
 --- !u!54 &1891115814
 Rigidbody:
   m_ObjectHideFlags: 0

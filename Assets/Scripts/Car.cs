@@ -82,9 +82,9 @@ public class Car : MonoBehaviour
                 this.speed = 0;
             if(this.timerBackUp > 0f)
             {
-                if(this.speed == 0f)
+                if(this.speed == 0f) //if possible the car should back up in order to stop blocking the drone
                 {
-                    //this.transform.position += -1f * this.transform.right * this.normalSpeed * Time.deltaTime;
+                    this.transform.position += -1f * this.transform.right * this.normalSpeed * Time.deltaTime;
                     this.timerBackUp += Time.deltaTime;
                 }
                 if(this.timerBackUp > 2f)
@@ -95,14 +95,7 @@ public class Car : MonoBehaviour
         {
             this.speed += Mathf.Max(speed, 8) * Time.deltaTime;
             if (this.speed >= normalSpeed) this.speed = normalSpeed;
-        }
-        
-        if(this.decelerate && this.timerBackUp > 0f) //it's blocking a drone
-        {    
-            //this.transform.position += -1f * this.transform.right * this.speed * Time.deltaTime;
-            this.timerBackUp += Time.deltaTime;
-        }
-        else
             this.transform.position += this.transform.right * this.speed * Time.deltaTime;
+        }
     }
 }
