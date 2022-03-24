@@ -14,7 +14,7 @@ public class Drone : MonoBehaviour
     public bool backToStation; //during this step the drone goes back to its original location
     public Vector3 targetPosition; //location where the drone has to go. Its value changes many times as the steps change
     public Vector3 antiCollisionPosition; //location where the drone has to go to avoid a collision with another drone
-    public bool antiCollisionMove; //true if the drone is moving to avoid a collision with another drone
+    public Dictionary<int, bool> tooCloseDrones; //list of the drones for which an anti-collision move must be made,with a bool which indicated if this drone must stop
     public float speed;
     public ControlStation headquarters; //control station
     public List<Drone> dronesInMission = new List<Drone>(); //the list of every drone for the mission
@@ -42,6 +42,7 @@ public class Drone : MonoBehaviour
         this.detection = false;
         this.endOfMission = false;
         this.backToStation = false;
+        this.tooCloseDrones = new Dictionary<int, bool>();
         this.speed = Parameters.droneSpeed;
         this.autonomy = Random.Range(Parameters.droneRequiredAutonomy, Parameters.droneMaximumAutonomy);
         this.headquarters = GameObject.Find("Headquarters").GetComponent<ControlStation>();
@@ -70,7 +71,7 @@ public class Drone : MonoBehaviour
     */
     public void Move()
     {
-        if (antiCollisionMove)
+        if (tooCloseDrones.Count > 0)
         {
             this.transform.position = Vector3.MoveTowards(this.transform.position, this.antiCollisionPosition, this.speed * Time.deltaTime);
         }
@@ -193,7 +194,9 @@ public class Drone : MonoBehaviour
             PositionMessage message = (PositionMessage)incomingMsg;
             if (Vector3.Distance(transform.position, message.position) < Parameters.minimumDistanceBetweenDrones)
             {
-                antiCollisionMove = true;
+                if (!tooCloseDrones.ContainsKey(message.droneId))
+                    tooCloseDrones.Add(message.droneId, false);
+
                 antiCollisionPosition = transform.position;
                 if (id > message.droneId)
                 {
@@ -201,18 +204,20 @@ public class Drone : MonoBehaviour
                     if (transform.position.y < message.position.y)
                     {
                         antiColMessage = new AntiCollisionMessage(id, transform.position, false);
+                        tooCloseDrones[message.droneId] = true;
                     }
                     else
                     {
                         antiColMessage = new AntiCollisionMessage(id, transform.position, true);
-                        antiCollisionPosition.y = transform.position.y + 10;
+                        if (!tooCloseDrones.ContainsValue(true))
+                            antiCollisionPosition.y = transform.position.y + 10;
                     }
                     headquarters.SendMessage(antiColMessage, message.droneId);
                 }
             }
             else
             {
-                antiCollisionMove = false;
+                tooCloseDrones.Remove(message.droneId);
             }
         }
         else if (incomingMsg.type == MessageType.AntiCollision)
@@ -220,11 +225,15 @@ public class Drone : MonoBehaviour
             AntiCollisionMessage message = (AntiCollisionMessage)incomingMsg;
             if (message.droneId > id)
             {
-                antiCollisionMove = true;
+                if (!tooCloseDrones.ContainsKey(message.droneId))
+                    tooCloseDrones.Add(message.droneId, true);
+
                 antiCollisionPosition = transform.position;
                 if (!message.stopInstruction)
                 {
-                    antiCollisionPosition.y = transform.position.y + 10;
+                    tooCloseDrones[message.droneId] = false;
+                    if (!tooCloseDrones.ContainsValue(true))
+                        antiCollisionPosition.y = transform.position.y + 10;
                 }
             }
         }

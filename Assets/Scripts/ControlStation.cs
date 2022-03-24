@@ -214,9 +214,11 @@ public class ControlStation : MonoBehaviour
         }
     }
 
+    /*
+    Method called when a drone wants to send a message to another drone.
+    */
     public void SendMessage(Message message, int dstId)
     {
-        //Debug.Log(message.droneId + " -> " + dstId);
         foreach (var drone in drones)
             if (drone.id == dstId)
                 drone.IncomingMessage(message);
