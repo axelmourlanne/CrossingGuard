@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Drone : MonoBehaviour
 {
+    public int id;
     public GameObject spot = null; //assigned spot
     public bool isActive; //this bool is true if the drone has been assigned to a mission, false otherwise
     public bool startFromStation; //during this step the drone goes over its assigned spot
@@ -12,6 +13,8 @@ public class Drone : MonoBehaviour
     public bool endOfMission; //during this step the drone takes altitude again in order to be high enough
     public bool backToStation; //during this step the drone goes back to its original location
     public Vector3 targetPosition; //location where the drone has to go. Its value changes many times as the steps change
+    public Vector3 antiCollisionPosition; //location where the drone has to go to avoid a collision with another drone
+    public bool antiCollisionMove; //true if the drone is moving to avoid a collision with another drone
     public float speed;
     public ControlStation headquarters; //control station
     public List<Drone> dronesInMission = new List<Drone>(); //the list of every drone for the mission
@@ -67,7 +70,14 @@ public class Drone : MonoBehaviour
     */
     public void Move()
     {
-        this.transform.position = Vector3.MoveTowards(this.transform.position, this.targetPosition, this.speed * Time.deltaTime);
+        if (antiCollisionMove)
+        {
+            this.transform.position = Vector3.MoveTowards(this.transform.position, this.antiCollisionPosition, this.speed * Time.deltaTime);
+        }
+        else 
+        {
+            this.transform.position = Vector3.MoveTowards(this.transform.position, this.targetPosition, this.speed * Time.deltaTime);
+        }
     }
 
 
@@ -173,6 +183,61 @@ public class Drone : MonoBehaviour
         }
     }
 
+     /*
+    Method called when a message is sent by a nearby drone
+    */
+    public void IncomingMessage(Message incomingMsg)
+    {
+        if (incomingMsg.type == MessageType.Position)
+        {
+            PositionMessage message = (PositionMessage)incomingMsg;
+            if (Vector3.Distance(transform.position, message.position) < Parameters.minimumDistanceBetweenDrones)
+            {
+                antiCollisionMove = true;
+                antiCollisionPosition = transform.position;
+                if (id > message.droneId)
+                {
+                    AntiCollisionMessage antiColMessage;
+                    if (transform.position.y < message.position.y)
+                    {
+                        antiColMessage = new AntiCollisionMessage(id, transform.position, false);
+                    }
+                    else
+                    {
+                        antiColMessage = new AntiCollisionMessage(id, transform.position, true);
+                        antiCollisionPosition.y = transform.position.y + 10;
+                    }
+                    headquarters.SendMessage(antiColMessage, message.droneId);
+                }
+            }
+            else
+            {
+                antiCollisionMove = false;
+            }
+        }
+        else if (incomingMsg.type == MessageType.AntiCollision)
+        {
+            AntiCollisionMessage message = (AntiCollisionMessage)incomingMsg;
+            if (message.droneId > id)
+            {
+                antiCollisionMove = true;
+                antiCollisionPosition = transform.position;
+                if (!message.stopInstruction)
+                {
+                    antiCollisionPosition.y = transform.position.y + 10;
+                }
+            }
+        }
+    }
+
+    /*
+    Method called when the drone wants to broadcast its position
+    */
+    public void BroadcastPosition()
+    {
+        headquarters.BroadcastMessage(this, new PositionMessage(id, transform.position));
+    }
+
 
 
     void Update()
@@ -181,6 +246,8 @@ public class Drone : MonoBehaviour
 
         if(this.isActive)
         {
+            BroadcastPosition();
+            
             if(this.timerAutonomy > 1f) //update of the autonomy attribute with the drone active
             {
                 this.timerAutonomy = 0f;

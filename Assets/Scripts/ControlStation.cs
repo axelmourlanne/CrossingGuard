@@ -200,4 +200,26 @@ public class ControlStation : MonoBehaviour
             print("It is currently impossible to call drones here. Please wait.");
     }
 
+    /*
+    Method called when a drone wants to send a message to all other drones.
+    */
+    public void BroadcastMessage(Drone src, Message message)
+    {
+        foreach (var drone in drones)
+        {
+            if (drone != src && Vector3.Distance(src.transform.position, drone.transform.position) < Parameters.maximumCommunicationDistance)
+            {
+                drone.IncomingMessage(message);
+            }
+        }
+    }
+
+    public void SendMessage(Message message, int dstId)
+    {
+        //Debug.Log(message.droneId + " -> " + dstId);
+        foreach (var drone in drones)
+            if (drone.id == dstId)
+                drone.IncomingMessage(message);
+    }
+
 }
