@@ -14,7 +14,7 @@ public class DroneTests
     private ControlStation headquarters;
     private Drone drone;
     private List<Drone> drones;
-    private int nbDrones = 5;
+    private int nbDrones = 4;
 
 
     [OneTimeSetUp]
@@ -49,7 +49,10 @@ public class DroneTests
 
         for (int i = 0; i < nbDrones; i++) {
             GameObject droneGO = GameObject.Instantiate(drone.gameObject, Vector3.zero, Quaternion.identity);
-            drones.Add(droneGO.GetComponent<Drone>());
+            Drone droneComponent = droneGO.GetComponent<Drone>();
+            droneComponent.id = i;
+            droneComponent.tooCloseDrones = new Dictionary<int, bool>();
+            drones.Add(droneComponent);
         }
 
         referencesSetup = true;
@@ -70,27 +73,67 @@ public class DroneTests
         yield return new WaitWhile(() => sceneLoaded == false);
         SetupReferences();
 
-        Drone d1 = drones[0], d2 = drones[1];
-        d1.id = 101;
-        d1.transform.position = new Vector3(10, 3, 0);
-        d1.targetPosition = new Vector3(0, 3, 0);
-        d2.id = 102;
+        Drone d1 = drones[0], d2 = drones[1], d3 = drones[2], d4 = drones[3];
+        d1.transform.position = new Vector3(10, 2.5f, 0);
+        d1.targetPosition = new Vector3(0, 2.5f, 0);
         d2.transform.position = new Vector3(0, 3, 0);
         d2.targetPosition = new Vector3(10, 3, 0);
+        d3.transform.position = new Vector3(10, 3f, 3);
+        d3.targetPosition = new Vector3(0, 3, 3);
+        d4.transform.position = new Vector3(0, 2.5f, 3);
+        d4.targetPosition = new Vector3(10, 2.5f, 3);
 
-        var dronesArray = new Drone[2];
-        dronesArray[0] = d1;
-        dronesArray[1] = d2;
-        headquarters.drones = dronesArray;
+        headquarters.drones = drones.ToArray();
 
-        yield return new WaitForSeconds(0.1f);
-
-        while (d1.transform.position != d1.targetPosition) {
+        while (d1.transform.position != d1.targetPosition && d2.transform.position != d2.targetPosition && d3.transform.position != d3.targetPosition && d4.transform.position != d4.targetPosition) {
             d1.BroadcastPosition();
             d1.Move();
             d2.BroadcastPosition();
             d2.Move();
             Assert.GreaterOrEqual(Vector3.Distance(d1.transform.position, d2.transform.position), 0.5f);
+            d3.BroadcastPosition();
+            d3.Move();
+            d4.BroadcastPosition();
+            d4.Move();
+            Assert.GreaterOrEqual(Vector3.Distance(d3.transform.position, d4.transform.position), 0.5f);
+            yield return new WaitForSeconds(0.05f);
+        }
+
+    }
+
+    [UnityTest]
+    public IEnumerator NoCollisionBetweenNumerousDrones()
+    {
+        yield return new WaitWhile(() => sceneLoaded == false);
+        SetupReferences();
+
+        Drone d1 = drones[0], d2 = drones[1], d3 = drones[2], d4 = drones[3];
+        d4.transform.position = new Vector3(10, 3, 0);
+        d4.targetPosition = new Vector3(0, 3, 0);
+        d2.transform.position = new Vector3(0, 3, 0);
+        d2.targetPosition = new Vector3(10, 3, 0);
+        d3.transform.position = new Vector3(0, 4, 0);
+        d3.targetPosition = new Vector3(10, 4, 0);
+        d1.transform.position = new Vector3(0, 5, 0);
+        d1.targetPosition = new Vector3(10, 5, 0);
+
+        headquarters.drones = drones.ToArray();
+
+        while (d1.transform.position != d1.targetPosition && d2.transform.position != d2.targetPosition && d3.transform.position != d3.targetPosition && d4.transform.position != d4.targetPosition) {
+            d1.BroadcastPosition();
+            d1.Move();
+            d2.BroadcastPosition();
+            d2.Move();
+            d3.BroadcastPosition();
+            d3.Move();
+            d4.BroadcastPosition();
+            d4.Move();
+            Assert.GreaterOrEqual(Vector3.Distance(d1.transform.position, d2.transform.position), 0.5f);
+            Assert.GreaterOrEqual(Vector3.Distance(d3.transform.position, d4.transform.position), 0.5f);
+            Assert.GreaterOrEqual(Vector3.Distance(d1.transform.position, d3.transform.position), 0.5f);
+            Assert.GreaterOrEqual(Vector3.Distance(d2.transform.position, d4.transform.position), 0.5f);
+            Assert.GreaterOrEqual(Vector3.Distance(d1.transform.position, d4.transform.position), 0.5f);
+            Assert.GreaterOrEqual(Vector3.Distance(d2.transform.position, d3.transform.position), 0.5f);
             yield return new WaitForSeconds(0.01f);
         }
 
