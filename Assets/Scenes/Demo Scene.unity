@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.62332946, g: 0.7038682, b: 0.75450355, a: 1}
+  m_IndirectSpecularColor: {r: 0.62332946, g: 0.70386934, b: 0.7545053, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -15915,6 +15915,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37b9299aebf7bb64da1ff98a7f166c7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 2
   spot: {fileID: 0}
   isActive: 0
   startFromStation: 0
@@ -15923,6 +15924,8 @@ MonoBehaviour:
   endOfMission: 0
   backToStation: 0
   targetPosition: {x: 0, y: 0, z: 0}
+  antiCollisionPosition: {x: 0, y: 0, z: 0}
+  antiCollisionMove: 0
   speed: 0
   headquarters: {fileID: 0}
   dronesInMission: []
@@ -18517,6 +18520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37b9299aebf7bb64da1ff98a7f166c7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 12
   spot: {fileID: 0}
   isActive: 0
   startFromStation: 0
@@ -18525,6 +18529,8 @@ MonoBehaviour:
   endOfMission: 0
   backToStation: 0
   targetPosition: {x: 0, y: 0, z: 0}
+  antiCollisionPosition: {x: 0, y: 0, z: 0}
+  antiCollisionMove: 0
   speed: 0
   headquarters: {fileID: 0}
   dronesInMission: []
@@ -23926,6 +23932,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37b9299aebf7bb64da1ff98a7f166c7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 5
   spot: {fileID: 0}
   isActive: 0
   startFromStation: 0
@@ -23934,6 +23941,8 @@ MonoBehaviour:
   endOfMission: 0
   backToStation: 0
   targetPosition: {x: 0, y: 0, z: 0}
+  antiCollisionPosition: {x: 0, y: 0, z: 0}
+  antiCollisionMove: 0
   speed: 0
   headquarters: {fileID: 0}
   dronesInMission: []
@@ -28486,6 +28495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37b9299aebf7bb64da1ff98a7f166c7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 4
   spot: {fileID: 0}
   isActive: 0
   startFromStation: 0
@@ -28494,6 +28504,8 @@ MonoBehaviour:
   endOfMission: 0
   backToStation: 0
   targetPosition: {x: 0, y: 0, z: 0}
+  antiCollisionPosition: {x: 0, y: 0, z: 0}
+  antiCollisionMove: 0
   speed: 0
   headquarters: {fileID: 0}
   dronesInMission: []
@@ -28628,6 +28640,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37b9299aebf7bb64da1ff98a7f166c7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 8
   spot: {fileID: 0}
   isActive: 0
   startFromStation: 0
@@ -28636,6 +28649,8 @@ MonoBehaviour:
   endOfMission: 0
   backToStation: 0
   targetPosition: {x: 0, y: 0, z: 0}
+  antiCollisionPosition: {x: 0, y: 0, z: 0}
+  antiCollisionMove: 0
   speed: 0
   headquarters: {fileID: 0}
   dronesInMission: []
@@ -32967,6 +32982,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37b9299aebf7bb64da1ff98a7f166c7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 11
   spot: {fileID: 0}
   isActive: 0
   startFromStation: 0
@@ -32975,6 +32991,8 @@ MonoBehaviour:
   endOfMission: 0
   backToStation: 0
   targetPosition: {x: 0, y: 0, z: 0}
+  antiCollisionPosition: {x: 0, y: 0, z: 0}
+  antiCollisionMove: 0
   speed: 0
   headquarters: {fileID: 0}
   dronesInMission: []
@@ -43499,6 +43517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37b9299aebf7bb64da1ff98a7f166c7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 10
   spot: {fileID: 0}
   isActive: 0
   startFromStation: 0
@@ -43507,6 +43526,8 @@ MonoBehaviour:
   endOfMission: 0
   backToStation: 0
   targetPosition: {x: 0, y: 0, z: 0}
+  antiCollisionPosition: {x: 0, y: 0, z: 0}
+  antiCollisionMove: 0
   speed: 0
   headquarters: {fileID: 0}
   dronesInMission: []
@@ -51583,6 +51604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37b9299aebf7bb64da1ff98a7f166c7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 9
   spot: {fileID: 0}
   isActive: 0
   startFromStation: 0
@@ -51591,6 +51613,8 @@ MonoBehaviour:
   endOfMission: 0
   backToStation: 0
   targetPosition: {x: 0, y: 0, z: 0}
+  antiCollisionPosition: {x: 0, y: 0, z: 0}
+  antiCollisionMove: 0
   speed: 0
   headquarters: {fileID: 0}
   dronesInMission: []
@@ -56859,6 +56883,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37b9299aebf7bb64da1ff98a7f166c7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 6
   spot: {fileID: 0}
   isActive: 0
   startFromStation: 0
@@ -56867,6 +56892,8 @@ MonoBehaviour:
   endOfMission: 0
   backToStation: 0
   targetPosition: {x: 0, y: 0, z: 0}
+  antiCollisionPosition: {x: 0, y: 0, z: 0}
+  antiCollisionMove: 0
   speed: 0
   headquarters: {fileID: 0}
   dronesInMission: []
@@ -64364,6 +64391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37b9299aebf7bb64da1ff98a7f166c7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 3
   spot: {fileID: 0}
   isActive: 0
   startFromStation: 0
@@ -64372,6 +64400,8 @@ MonoBehaviour:
   endOfMission: 0
   backToStation: 0
   targetPosition: {x: 0, y: 0, z: 0}
+  antiCollisionPosition: {x: 0, y: 0, z: 0}
+  antiCollisionMove: 0
   speed: 0
   headquarters: {fileID: 0}
   dronesInMission: []
@@ -64491,6 +64521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37b9299aebf7bb64da1ff98a7f166c7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 7
   spot: {fileID: 0}
   isActive: 0
   startFromStation: 0
@@ -64499,6 +64530,8 @@ MonoBehaviour:
   endOfMission: 0
   backToStation: 0
   targetPosition: {x: 0, y: 0, z: 0}
+  antiCollisionPosition: {x: 0, y: 0, z: 0}
+  antiCollisionMove: 0
   speed: 0
   headquarters: {fileID: 0}
   dronesInMission: []
@@ -68110,6 +68143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37b9299aebf7bb64da1ff98a7f166c7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 1
   spot: {fileID: 0}
   isActive: 0
   startFromStation: 0
@@ -68118,6 +68152,8 @@ MonoBehaviour:
   endOfMission: 0
   backToStation: 0
   targetPosition: {x: 0, y: 0, z: 0}
+  antiCollisionPosition: {x: 0, y: 0, z: 0}
+  antiCollisionMove: 0
   speed: 0
   headquarters: {fileID: 0}
   dronesInMission: []
