@@ -85,18 +85,20 @@ public class DroneTests
 
         headquarters.drones = drones.ToArray();
 
+        float minimumDistance = Parameters.minimumDistanceBetweenDrones * 0.75f;
+
         while (d1.transform.position != d1.targetPosition && d2.transform.position != d2.targetPosition && d3.transform.position != d3.targetPosition && d4.transform.position != d4.targetPosition) {
             d1.BroadcastPosition();
             d1.Move();
             d2.BroadcastPosition();
             d2.Move();
-            Assert.GreaterOrEqual(Vector3.Distance(d1.transform.position, d2.transform.position), 0.5f);
+            Assert.GreaterOrEqual(Vector3.Distance(d1.transform.position, d2.transform.position), minimumDistance);
             d3.BroadcastPosition();
             d3.Move();
             d4.BroadcastPosition();
             d4.Move();
-            Assert.GreaterOrEqual(Vector3.Distance(d3.transform.position, d4.transform.position), 0.5f);
-            yield return new WaitForSeconds(0.05f);
+            Assert.GreaterOrEqual(Vector3.Distance(d3.transform.position, d4.transform.position), minimumDistance);
+            yield return new WaitForSeconds(0.01f);
         }
 
     }
@@ -119,6 +121,8 @@ public class DroneTests
 
         headquarters.drones = drones.ToArray();
 
+        float minimumDistance = Parameters.minimumDistanceBetweenDrones * 0.75f;
+
         while (d1.transform.position != d1.targetPosition && d2.transform.position != d2.targetPosition && d3.transform.position != d3.targetPosition && d4.transform.position != d4.targetPosition) {
             d1.BroadcastPosition();
             d1.Move();
@@ -128,12 +132,12 @@ public class DroneTests
             d3.Move();
             d4.BroadcastPosition();
             d4.Move();
-            Assert.GreaterOrEqual(Vector3.Distance(d1.transform.position, d2.transform.position), 0.5f);
-            Assert.GreaterOrEqual(Vector3.Distance(d3.transform.position, d4.transform.position), 0.5f);
-            Assert.GreaterOrEqual(Vector3.Distance(d1.transform.position, d3.transform.position), 0.5f);
-            Assert.GreaterOrEqual(Vector3.Distance(d2.transform.position, d4.transform.position), 0.5f);
-            Assert.GreaterOrEqual(Vector3.Distance(d1.transform.position, d4.transform.position), 0.5f);
-            Assert.GreaterOrEqual(Vector3.Distance(d2.transform.position, d3.transform.position), 0.5f);
+            Assert.GreaterOrEqual(Vector3.Distance(d1.transform.position, d2.transform.position), minimumDistance);
+            Assert.GreaterOrEqual(Vector3.Distance(d3.transform.position, d4.transform.position), minimumDistance);
+            Assert.GreaterOrEqual(Vector3.Distance(d1.transform.position, d3.transform.position), minimumDistance);
+            Assert.GreaterOrEqual(Vector3.Distance(d2.transform.position, d4.transform.position), minimumDistance);
+            Assert.GreaterOrEqual(Vector3.Distance(d1.transform.position, d4.transform.position), minimumDistance);
+            Assert.GreaterOrEqual(Vector3.Distance(d2.transform.position, d3.transform.position), minimumDistance);
             yield return new WaitForSeconds(0.01f);
         }
 

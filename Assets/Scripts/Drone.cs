@@ -203,16 +203,16 @@ public class Drone : MonoBehaviour
                     AntiCollisionMessage antiColMessage;
                     if (transform.position.y < message.position.y)
                     {
-                        antiColMessage = new AntiCollisionMessage(id, transform.position, false);
+                        antiColMessage = new AntiCollisionMessage(id, message.droneId, false);
                         tooCloseDrones[message.droneId] = true;
                     }
                     else
                     {
-                        antiColMessage = new AntiCollisionMessage(id, transform.position, true);
+                        antiColMessage = new AntiCollisionMessage(id, message.droneId, true);
                         if (!tooCloseDrones.ContainsValue(true))
                             antiCollisionPosition.y = transform.position.y + 10;
                     }
-                    headquarters.SendMessage(antiColMessage, message.droneId);
+                    headquarters.BroadcastMessage(this, antiColMessage);
                 }
             }
             else
@@ -223,6 +223,9 @@ public class Drone : MonoBehaviour
         else if (incomingMsg.type == MessageType.AntiCollision)
         {
             AntiCollisionMessage message = (AntiCollisionMessage)incomingMsg;
+
+            if (message.receiverDroneId != id) return;
+
             if (message.droneId > id)
             {
                 if (!tooCloseDrones.ContainsKey(message.droneId))

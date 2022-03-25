@@ -25,12 +25,12 @@ public class PositionMessage : Message
 
 public class AntiCollisionMessage : Message
 {
-    public Vector3 position { get; }
+    public int receiverDroneId { get; }
     public bool stopInstruction { get; }
 
-    public AntiCollisionMessage(int droneId, Vector3 position, bool stopInstruction) :  base(MessageType.AntiCollision, droneId)
+    public AntiCollisionMessage(int droneId, int receiverDroneId, bool stopInstruction) :  base(MessageType.AntiCollision, droneId)
     {
-        this.position = position;
+        this.receiverDroneId = receiverDroneId;
         this.stopInstruction = stopInstruction;
     }
 }
