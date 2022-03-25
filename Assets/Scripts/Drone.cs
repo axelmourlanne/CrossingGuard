@@ -373,7 +373,7 @@ public class Drone : MonoBehaviour
                 else
                 {
                     Move();
-
+                    this.transform.GetChild(2).GetComponent<Renderer>().material.color = Color.green;
                     if(GetDistanceFromTarget(0,1,0)[1] <= 0.1f)
                     {
                         this.endOfMission = false;
