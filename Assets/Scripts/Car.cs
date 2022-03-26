@@ -5,11 +5,11 @@ using UnityEngine;
 public class Car : MonoBehaviour
 {
 
-    private Vector3 initialPosition;
-    public float normalSpeed;
-    private float speed;
-    private bool decelerate = false;
-    public float timerBackUp;
+    private Vector3 initialPosition; //the initial position at the start of the simulation
+    public float normalSpeed; //the speed at which a car starts the simulation with
+    private float speed; //the current speed of the vehicle
+    private bool decelerate = false; //if this boolean is true, it means that the car should decrease its speed
+    public float timerBackUp; //this float represents the time during which the car has to back up.
 
 
     void Start()
@@ -20,6 +20,11 @@ public class Car : MonoBehaviour
         this.timerBackUp = 0f;
     }
 
+    /*
+    Method called at each iteration.
+    When an object, be it a pedestrian, a drone or anything else, the car's attribute this.decelerate becomes true.
+    Otherwise it stays false.
+    */
     void DetectionLaser()
     {
         Vector3 current_pos = transform.position;
@@ -55,6 +60,11 @@ public class Car : MonoBehaviour
 
     }
 
+
+    /*
+    Method called at each iteration.
+    When an object from the 9th layer is detected, it means this is the end of the road and the car's position goes back to the initial position.
+    */
     void EndOfRoad() 
     {
         var ray = new Ray(transform.position, transform.TransformDirection(Vector3.down));
@@ -75,12 +85,12 @@ public class Car : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (decelerate)
+        if(decelerate)
         {
-            this.speed -= Mathf.Max(speed, 8) * Time.deltaTime;
+            this.speed -= Mathf.Max(speed, 8) * Time.deltaTime; //decrease of the speed because an object was detected
             if(this.speed <= 0) 
                 this.speed = 0;
-            if(this.timerBackUp > 0f)
+            if(this.timerBackUp > 0f) //timerBackUp is strictly superior to 0 only when the car is blocking a drone
             {
                 if(this.speed == 0f) //if possible the car should back up in order to stop blocking the drone
                 {
@@ -88,13 +98,14 @@ public class Car : MonoBehaviour
                     this.timerBackUp += Time.deltaTime;
                 }
                 if(this.timerBackUp > 2f)
-                    this.timerBackUp = 0f;
+                    this.timerBackUp = 0f; //after these 2s the timer goes back to 0, meaning it's not blocking a drone anymore
             }
         }
         else
         {
             this.speed += Mathf.Max(speed, 8) * Time.deltaTime;
-            if (this.speed >= normalSpeed) this.speed = normalSpeed;
+            if(this.speed >= normalSpeed) 
+                this.speed = normalSpeed;
             this.transform.position += this.transform.right * this.speed * Time.deltaTime;
         }
     }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.62332946, g: 0.70386934, b: 0.7545053, a: 1}
+  m_IndirectSpecularColor: {r: 0.62332946, g: 0.7038682, b: 0.75450355, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -15925,7 +15925,6 @@ MonoBehaviour:
   backToStation: 0
   targetPosition: {x: 0, y: 0, z: 0}
   antiCollisionPosition: {x: 0, y: 0, z: 0}
-  antiCollisionMove: 0
   speed: 0
   headquarters: {fileID: 0}
   dronesInMission: []
@@ -18530,7 +18529,6 @@ MonoBehaviour:
   backToStation: 0
   targetPosition: {x: 0, y: 0, z: 0}
   antiCollisionPosition: {x: 0, y: 0, z: 0}
-  antiCollisionMove: 0
   speed: 0
   headquarters: {fileID: 0}
   dronesInMission: []
@@ -23942,7 +23940,6 @@ MonoBehaviour:
   backToStation: 0
   targetPosition: {x: 0, y: 0, z: 0}
   antiCollisionPosition: {x: 0, y: 0, z: 0}
-  antiCollisionMove: 0
   speed: 0
   headquarters: {fileID: 0}
   dronesInMission: []
@@ -28505,7 +28502,6 @@ MonoBehaviour:
   backToStation: 0
   targetPosition: {x: 0, y: 0, z: 0}
   antiCollisionPosition: {x: 0, y: 0, z: 0}
-  antiCollisionMove: 0
   speed: 0
   headquarters: {fileID: 0}
   dronesInMission: []
@@ -28650,7 +28646,6 @@ MonoBehaviour:
   backToStation: 0
   targetPosition: {x: 0, y: 0, z: 0}
   antiCollisionPosition: {x: 0, y: 0, z: 0}
-  antiCollisionMove: 0
   speed: 0
   headquarters: {fileID: 0}
   dronesInMission: []
@@ -32992,7 +32987,6 @@ MonoBehaviour:
   backToStation: 0
   targetPosition: {x: 0, y: 0, z: 0}
   antiCollisionPosition: {x: 0, y: 0, z: 0}
-  antiCollisionMove: 0
   speed: 0
   headquarters: {fileID: 0}
   dronesInMission: []
@@ -43527,7 +43521,6 @@ MonoBehaviour:
   backToStation: 0
   targetPosition: {x: 0, y: 0, z: 0}
   antiCollisionPosition: {x: 0, y: 0, z: 0}
-  antiCollisionMove: 0
   speed: 0
   headquarters: {fileID: 0}
   dronesInMission: []
@@ -51614,7 +51607,6 @@ MonoBehaviour:
   backToStation: 0
   targetPosition: {x: 0, y: 0, z: 0}
   antiCollisionPosition: {x: 0, y: 0, z: 0}
-  antiCollisionMove: 0
   speed: 0
   headquarters: {fileID: 0}
   dronesInMission: []
@@ -56893,7 +56885,6 @@ MonoBehaviour:
   backToStation: 0
   targetPosition: {x: 0, y: 0, z: 0}
   antiCollisionPosition: {x: 0, y: 0, z: 0}
-  antiCollisionMove: 0
   speed: 0
   headquarters: {fileID: 0}
   dronesInMission: []
@@ -64401,7 +64392,6 @@ MonoBehaviour:
   backToStation: 0
   targetPosition: {x: 0, y: 0, z: 0}
   antiCollisionPosition: {x: 0, y: 0, z: 0}
-  antiCollisionMove: 0
   speed: 0
   headquarters: {fileID: 0}
   dronesInMission: []
@@ -64531,7 +64521,6 @@ MonoBehaviour:
   backToStation: 0
   targetPosition: {x: 0, y: 0, z: 0}
   antiCollisionPosition: {x: 0, y: 0, z: 0}
-  antiCollisionMove: 0
   speed: 0
   headquarters: {fileID: 0}
   dronesInMission: []
@@ -65008,7 +64997,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 129800, guid: 1d3b1a1513de66247974634911345b98, type: 3}
       propertyPath: m_Name
-      value: Thierry
+      value: Pedestrian
       objectReference: {fileID: 0}
     - target: {fileID: 129800, guid: 1d3b1a1513de66247974634911345b98, type: 3}
       propertyPath: m_Layer
@@ -65016,7 +65005,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 427610, guid: 1d3b1a1513de66247974634911345b98, type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 427610, guid: 1d3b1a1513de66247974634911345b98, type: 3}
       propertyPath: m_LocalPosition.x
@@ -68153,7 +68142,6 @@ MonoBehaviour:
   backToStation: 0
   targetPosition: {x: 0, y: 0, z: 0}
   antiCollisionPosition: {x: 0, y: 0, z: 0}
-  antiCollisionMove: 0
   speed: 0
   headquarters: {fileID: 0}
   dronesInMission: []
@@ -76074,7 +76062,7 @@ Transform:
   - {fileID: 108924162}
   - {fileID: 1222344316}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2075955553 stripped
 Transform:

@@ -11,6 +11,8 @@ TagManager:
   - crossingSystem2
   - crossingSystem3
   - crosswalk
+  - spot2
+  - crossing
   layers:
   - Default
   - TransparentFX
@@ -20,7 +22,7 @@ TagManager:
   - UI
   - 
   - 
-  - Thierry
+  - Pedestrian
   - RoadEnd
   - Car
   - 

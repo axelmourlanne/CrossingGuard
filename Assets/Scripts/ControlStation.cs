@@ -32,19 +32,19 @@ public class ControlStation : MonoBehaviour
     */
     public Drone[] sortDronesAccordingToDistance(Drone[] dronesArray)
     {
-        GameObject thierry = GameObject.Find("Thierry");
+        GameObject pedestrian = GameObject.Find("Pedestrian");
         Drone[] copyDronesArray = new Drone[dronesArray.Length];
         dronesArray.CopyTo(copyDronesArray, 0);
         for(int i = 0 ; i < copyDronesArray.Length ; i++)
         {
             for(int j = i+1 ; j < copyDronesArray.Length ; j++)
             {
-                float dXi = Mathf.Abs(thierry.transform.position.x - copyDronesArray[i].transform.position.x);
-                float dYi = Mathf.Abs(thierry.transform.position.y - copyDronesArray[i].transform.position.y);
-                float dZi = Mathf.Abs(thierry.transform.position.z - copyDronesArray[i].transform.position.z);
-                float dXj = Mathf.Abs(thierry.transform.position.x - copyDronesArray[j].transform.position.x);
-                float dYj = Mathf.Abs(thierry.transform.position.y - copyDronesArray[j].transform.position.y);
-                float dZj = Mathf.Abs(thierry.transform.position.z - copyDronesArray[j].transform.position.z);
+                float dXi = Mathf.Abs(pedestrian.transform.position.x - copyDronesArray[i].transform.position.x);
+                float dYi = Mathf.Abs(pedestrian.transform.position.y - copyDronesArray[i].transform.position.y);
+                float dZi = Mathf.Abs(pedestrian.transform.position.z - copyDronesArray[i].transform.position.z);
+                float dXj = Mathf.Abs(pedestrian.transform.position.x - copyDronesArray[j].transform.position.x);
+                float dYj = Mathf.Abs(pedestrian.transform.position.y - copyDronesArray[j].transform.position.y);
+                float dZj = Mathf.Abs(pedestrian.transform.position.z - copyDronesArray[j].transform.position.z);
                 if(Mathf.Sqrt(Mathf.Pow(2, dXi) + Mathf.Pow(2, dYi) + Mathf.Pow(2, dZi)) > Mathf.Sqrt(Mathf.Pow(2, dXj) + Mathf.Pow(2, dYj) + Mathf.Pow(2, dZj)))
                 {
                     Drone tmp = copyDronesArray[i];
