@@ -73,3 +73,9 @@ Plutôt que d'attendre qu'elles arrivent pour – peut-être – lui céder le p
 Ces derniers dissuadent les voitures de passer en force et elles s'arrêtent : le piéton peut traverser plus sereinement.
 
 Une fois que le piéton a fini de traverser, les drones s'envolent et les voitures reprennent leur route.
+
+## Commandes
+
+Le piéton avance lorsqu'on appuie sur la touche `W` du clavier. Il est possible de le faire tourner sur lui-même en utilisant les flèches directionnelles du clavier.
+
+L'appui sur le bouton d'une borne se fait en cliquant dessus.

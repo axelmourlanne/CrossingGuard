@@ -22,7 +22,7 @@ public class Car : MonoBehaviour
 
     /*
     Method called at each iteration.
-    When an object, be it a pedestrian, a drone or anything else, the car's attribute this.decelerate becomes true.
+    When an object, be it a pedestrian, a drone or anything else, is detected, the car's attribute this.decelerate becomes true.
     Otherwise it stays false.
     */
     void DetectionLaser()
