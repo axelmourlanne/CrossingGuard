@@ -31,8 +31,8 @@ public class Drone : MonoBehaviour
     public int numberOfDronesReady = 0; //this counter is incremented for the chief as each drone arrives to its assigned spot
     public int autonomy; //the number of seconds a drone can be active. It's increased when the drone is charging at the station
     public bool batteryIsTooLow; //when this boolean is true, a drone cannot continue its mission anymore and has to request a substition from the headquarters
-    public bool substitutionInProgress;
-    public bool waitingForCar;
+    public bool substitutionInProgress; //when this boolean is true, no other drone of the same team should request a substitution
+    public bool waitingForCar; //when this boolean is true, the drone can't descend further because of a car
 
     void Start()
     {
@@ -138,8 +138,6 @@ public class Drone : MonoBehaviour
                 detectionDirection.x = i;
                 detectionDirection.y = j;
                 var ray = new Ray(this.transform.position, transform.TransformDirection(detectionDirection));
-                Vector3 drawDown = transform.TransformDirection(detectionDirection * Parameters.droneLaserRange);
-                //Debug.DrawRay(this.transform.position, drawDown, Color.blue);
                 RaycastHit hit;
 
                 if (Physics.Raycast(ray, out hit, Parameters.droneLaserRange, 1 << 8)) 
@@ -175,7 +173,7 @@ public class Drone : MonoBehaviour
                     this.headquarters.NewChiefIsChosen(this);    
             }
             
-            hit.transform.gameObject.GetComponent<Car>().timerBackUp += Time.deltaTime;
+            hit.transform.gameObject.GetComponent<Car>().timerBackUp += Time.deltaTime; //the drones asks the car to back up a bit if possible
         }    
         else
         {
@@ -277,6 +275,7 @@ public class Drone : MonoBehaviour
                 this.batteryIsTooLow = true;
                 this.chief.substitutionInProgress = true; //other drones from the same mission should not request a substitution at the same time.
                 this.headquarters.RequestForChargedDrone(this);
+                this.transform.GetChild(2).GetComponent<Renderer>().material.color = Color.black;
             }
 
             if(this.autonomy == 0) //if a drone's autonomy hits 0 seconds before having returned to its station, it ceases to function. 
@@ -357,6 +356,7 @@ public class Drone : MonoBehaviour
                             }
 
                             drone.endOfMission = true;
+                            drone.transform.GetChild(2).GetComponent<Renderer>().material.color = Color.green;
                         }
                         this.headquarters.currentlyUsedSpots.Remove(this.missionSpots); //this way another pedestrian can call upon another team of drones at the same crosswalk right away
                     }
@@ -369,14 +369,11 @@ public class Drone : MonoBehaviour
             {
 
                 if(this.timerMissionEnd < (this.batteryIsTooLow ? Parameters.droneMissionTimeout / 2 : Parameters.droneMissionTimeout)) //we don't want a drone with low battery to wait too much
-                {
                     this.timerMissionEnd += Time.deltaTime;
-                    this.transform.GetChild(2).GetComponent<Renderer>().material.color = this.batteryIsTooLow ? Color.black : Color.green; //the drone emits green light if the mission ends without issue and is black if it has to quit the mission because of its battery
-                }
+                
                 else
                 {
                     Move();
-                    this.transform.GetChild(2).GetComponent<Renderer>().material.color = Color.green;
                     if(GetDistanceFromTarget(0,1,0)[1] <= 0.1f)
                     {
                         this.endOfMission = false;

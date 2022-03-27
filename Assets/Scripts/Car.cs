@@ -28,7 +28,6 @@ public class Car : MonoBehaviour
     void DetectionLaser()
     {
         Vector3 current_pos = transform.position;
-        //current_pos.z += 0.5f;
 
         for (float i = 0f ; i <= 0.3f ; i += 0.015f)
             for(float j = -0.1f ; j <= 0.1f ; j += 0.015f)
@@ -40,9 +39,6 @@ public class Car : MonoBehaviour
             detectionDirection.y = i;
 
             var ray = new Ray(current_pos, transform.TransformDirection(detectionDirection));
-
-            Vector3 drawDown = transform.TransformDirection(detectionDirection * Parameters.carLaserRange);
-            //Debug.DrawRay(current_pos, drawDown, Color.red);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, Parameters.carLaserRange))

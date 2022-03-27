@@ -15,7 +15,8 @@ public class Human : MonoBehaviour
 
 
     /*
-    Method called at each iteration to synchronize the camera with the human.
+    Method called at each iteration. 
+    Synchronizes the camera with the pedestrian in order to get a first person view.
     */
     void CameraMove()
     {
@@ -27,7 +28,6 @@ public class Human : MonoBehaviour
 
     void Start()
     {
-        //this.GetComponent<MeshRenderer>().enabled = false;
         this.isKeyWPressed = false;
         this.isKeyLeftPressed = false;
         this.isKeyRightPressed = false;
