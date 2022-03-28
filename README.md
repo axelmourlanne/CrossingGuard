@@ -38,7 +38,7 @@ Il est possible de démarrer la simulation en lançant directement l'exécutable
 Sur Windows :
 ```
 cd Build/Windows_x86-64
-CrossingGard.exe
+CrossingGuard.exe
 ```
 
 Sur Linux :
