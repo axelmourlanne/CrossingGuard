@@ -30,6 +30,16 @@ lesquelles ils se rechargent.
 Les boutons pressés par les piétons seraient connectés, ce qui fait que lorsqu’un piéton appuie dessus, la ville intelligente pourrait affecter les drones disponibles (et disposant de suffisant d’autonomie pour assurer une mission classique) les
 plus proches au passage piéton correspondant, et ce de manière complètement autonome et dynamiques. Il serait aussi possible d’affecter les drones à des missions récurrentes, comme part exemple les sorties d’école le matin et le soir.
 
+
+## Lancement de la simulation
+
+Il est possible de démarrer la simulation en lançant directement l'exécutable.  
+Sur Windows : `./Build/Windows_x86-64/CrossingGard.exe`.  
+Sur Linux : `./Build/Linux_x86-64/CrossingGuard.x86-64`.  
+
+De plus, elle a été réalisée sur Unity 2020.3.23f1, elle devrait donc a minima être accessible via l'éditeur Unity de cette version ou d'une version ultérieure.
+
+
 ## Architecture du projet
 
 L’architecture de notre projet correspond à l’architecture classique d’un projet Unity.
@@ -40,8 +50,7 @@ que se trouvent tous les scripts, les prefabs (contenant des prefabs de la ville
 nage incarné lors de la simulation, des voitures ou encore des drones), les materials ou
 encore le contenu de la scène correspondant au scénario.
 
-– `Build/` contient tous les fichiers nécessaires à l’exécution du scénario via le fichier
-exécutable au format `.exe`.
+– `Build/` contient les exécutables et les fichiers nécessaires à leur lancement.
 
 – `Logs/` est le dossier comprend toutes les traces de messages, de warnings ou d’erreurs apparus dans l’application.
 
@@ -52,13 +61,6 @@ lancement de la simulation dans l’éditeur.
 
 – `ProjectSettings/` contient quant à lui de nombreux fichiers de configuration pour
 le projet projet.
-
-
-## Lancement de la simulation
-
-La simulation a été réalisée sur Unity 2020.3.23f1, elle devrait donc a minima être accessible via l'éditeur Unity de cette version ou d'une version ultérieure.
-
-Il est également possible sur Windows de lancer directement l'exécutable CrossingGard.exe trouvable au chemin `./Build/CrossingGard.exe`.
 
 
 ## Démonstration
