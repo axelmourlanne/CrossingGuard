@@ -65,11 +65,11 @@ public class CarTests
 
         yield return new WaitForSeconds(1);
 
-        Assert.AreEqual(Vector3.Distance(beforePosition, car.transform.position), 0);
+        Assert.AreEqual(0, Vector3.Distance(beforePosition, car.transform.position));
     }
 
     [UnityTest]
-    public IEnumerator CarDoesNotStopsWhenNothingInFront()
+    public IEnumerator CarDoesNotStopWhenNothingInFront()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
         SetupReferences();
@@ -83,7 +83,7 @@ public class CarTests
 
         yield return new WaitForSeconds(1);
 
-        Assert.AreNotEqual(Vector3.Distance(beforePosition, car.transform.position), 0);
+        Assert.AreNotEqual(0, Vector3.Distance(beforePosition, car.transform.position));
     }
 
 }

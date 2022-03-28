@@ -15,6 +15,7 @@ public class DroneTests
     private Drone drone;
     private List<Drone> drones;
     private int nbDrones = 4;
+    private Car car;
 
 
     [OneTimeSetUp]
@@ -44,6 +45,10 @@ public class DroneTests
             else if (t.name == "Drone01")
             {
                 drone = t.GetComponent<Drone>();
+            }
+            else if (t.name == "Car")
+            {
+                car = t.GetComponent<Car>();
             }
         }
 
@@ -104,7 +109,7 @@ public class DroneTests
     }
 
     [UnityTest]
-    public IEnumerator NoCollisionBetweenNumerousDrones()
+    public IEnumerator NoCollisionBetweenNumerousDrones1()
     {
         yield return new WaitWhile(() => sceneLoaded == false);
         SetupReferences();
@@ -141,6 +146,84 @@ public class DroneTests
             yield return new WaitForSeconds(0.01f);
         }
 
+    }
+
+    [UnityTest]
+    public IEnumerator NoCollisionBetweenNumerousDrones2()
+    {
+        yield return new WaitWhile(() => sceneLoaded == false);
+        SetupReferences();
+
+        Drone d1 = drones[0], d2 = drones[1], d3 = drones[2], d4 = drones[3];
+        d1.transform.position = new Vector3(10, 3, 0);
+        d1.targetPosition = new Vector3(0, 3, 0);
+        d2.transform.position = new Vector3(0, 3, 0);
+        d2.targetPosition = new Vector3(10, 3, 0);
+        d3.transform.position = new Vector3(0, 4, 0);
+        d3.targetPosition = new Vector3(10, 4, 0);
+        d4.transform.position = new Vector3(0, 5, 0);
+        d4.targetPosition = new Vector3(10, 5, 0);
+
+        headquarters.drones = drones.ToArray();
+
+        float minimumDistance = Parameters.minimumDistanceBetweenDrones * 0.75f;
+
+        while (d1.transform.position != d1.targetPosition && d2.transform.position != d2.targetPosition && d3.transform.position != d3.targetPosition && d4.transform.position != d4.targetPosition) {
+            d1.BroadcastPosition();
+            d1.Move();
+            d2.BroadcastPosition();
+            d2.Move();
+            d3.BroadcastPosition();
+            d3.Move();
+            d4.BroadcastPosition();
+            d4.Move();
+            Assert.GreaterOrEqual(Vector3.Distance(d1.transform.position, d2.transform.position), minimumDistance);
+            Assert.GreaterOrEqual(Vector3.Distance(d3.transform.position, d4.transform.position), minimumDistance);
+            Assert.GreaterOrEqual(Vector3.Distance(d1.transform.position, d3.transform.position), minimumDistance);
+            Assert.GreaterOrEqual(Vector3.Distance(d2.transform.position, d4.transform.position), minimumDistance);
+            Assert.GreaterOrEqual(Vector3.Distance(d1.transform.position, d4.transform.position), minimumDistance);
+            Assert.GreaterOrEqual(Vector3.Distance(d2.transform.position, d3.transform.position), minimumDistance);
+            yield return new WaitForSeconds(0.01f);
+        }
+    }
+
+    [UnityTest]
+    public IEnumerator NoCollisionBetweenNumerousDrones3()
+    {
+        yield return new WaitWhile(() => sceneLoaded == false);
+        SetupReferences();
+
+        Drone d1 = drones[0], d2 = drones[1], d3 = drones[2], d4 = drones[3];
+        d4.transform.position = new Vector3(10, 3, 0);
+        d4.targetPosition = new Vector3(0, 3, 0);
+        d3.transform.position = new Vector3(0, 3, 0);
+        d3.targetPosition = new Vector3(10, 3, 0);
+        d2.transform.position = new Vector3(0, 4, 0);
+        d2.targetPosition = new Vector3(10, 4, 0);
+        d1.transform.position = new Vector3(0, 5, 0);
+        d1.targetPosition = new Vector3(10, 5, 0);
+
+        headquarters.drones = drones.ToArray();
+
+        float minimumDistance = Parameters.minimumDistanceBetweenDrones * 0.75f;
+
+        while (d1.transform.position != d1.targetPosition && d2.transform.position != d2.targetPosition && d3.transform.position != d3.targetPosition && d4.transform.position != d4.targetPosition) {
+            d1.BroadcastPosition();
+            d1.Move();
+            d2.BroadcastPosition();
+            d2.Move();
+            d3.BroadcastPosition();
+            d3.Move();
+            d4.BroadcastPosition();
+            d4.Move();
+            Assert.GreaterOrEqual(Vector3.Distance(d1.transform.position, d2.transform.position), minimumDistance);
+            Assert.GreaterOrEqual(Vector3.Distance(d3.transform.position, d4.transform.position), minimumDistance);
+            Assert.GreaterOrEqual(Vector3.Distance(d1.transform.position, d3.transform.position), minimumDistance);
+            Assert.GreaterOrEqual(Vector3.Distance(d2.transform.position, d4.transform.position), minimumDistance);
+            Assert.GreaterOrEqual(Vector3.Distance(d1.transform.position, d4.transform.position), minimumDistance);
+            Assert.GreaterOrEqual(Vector3.Distance(d2.transform.position, d3.transform.position), minimumDistance);
+            yield return new WaitForSeconds(0.01f);
+        }
     }
 
 }
