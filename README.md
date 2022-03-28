@@ -2,7 +2,7 @@
 
 ## Présentation du projet
 
-Le projet a été pensé pour l’UE « Concours drones », dans laquelle il est demandé
+Le projet a été pensé pour l’UE « Concours drone », dans laquelle il est demandé
 de proposer une solution innovante basée sur un drone ou un essaim de drones, afin de
 répondre à une problématique choisie.
 Notre projet s’inscrit dans le cadre d’une zone urbaine, et plus particulièrement dans
@@ -34,10 +34,19 @@ plus proches au passage piéton correspondant, et ce de manière complètement a
 ## Lancement de la simulation
 
 Il est possible de démarrer la simulation en lançant directement l'exécutable.  
-Sur Windows : `./Build/Windows_x86-64/CrossingGard.exe`.  
-Sur Linux : `./Build/Linux_x86-64/CrossingGuard.x86-64`.  
 
-De plus, elle a été réalisée sur Unity 2020.3.23f1, elle devrait donc a minima être accessible via l'éditeur Unity de cette version ou d'une version ultérieure.
+Sur Windows :
+```
+cd Build/Windows_x86-64
+CrossingGard.exe
+```
+
+Sur Linux :
+```
+./Build/Linux_x86-64/CrossingGuard.x86-64
+```
+
+De plus, la simulation a été réalisée sur Unity 2020.3.23f1, elle devrait donc a minima être accessible via l'éditeur Unity de cette version ou d'une version ultérieure.
 
 
 ## Architecture du projet
