@@ -80,7 +80,7 @@ Une mission considérée comme classique est présentée dans le fichier GIF ci-
 
 Le piéton s'approche du passage piéton et aperçoit des voitures arriver de chaque côté.
 
-Plutôt que d'attendre qu'elles arrivent pour – peut-être – lui céder le passage, le piéton appuie sur le bouton de la borne, ce qui appelle un essaim de drone appelés gardes. 
+Plutôt que d'attendre qu'elles arrivent pour – peut-être – lui céder le passage, le piéton appuie sur le bouton de la borne, ce qui appelle un essaim de drones appelés gardes. 
 Ces derniers dissuadent les voitures de passer en force et elles s'arrêtent : le piéton peut traverser plus sereinement.
 
 Une fois que le piéton a fini de traverser, les drones s'envolent et les voitures reprennent leur route.
